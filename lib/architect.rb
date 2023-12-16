@@ -8,6 +8,9 @@ module Architect
   # @!method self.init_sdl()
   #   Initializes SDL (using SDL_INIT_EVERYTHING).
 
+  # @!method self.set_hint(name, value)
+  #   Set an SDL hint.
+
   # @!method self.create_window(window_params)
   #   Creates an SDL window and returns the pointer.
   #   @param [Hash] window_params
@@ -28,4 +31,20 @@ module Architect
   # @!method self.render_present(renderer)
   #   Presents the renderer buffer.
   #   @param [Object] renderer
+
+  # @!method self.render_draw_color(renderer, r, g, b, a)
+  #   Sets the current draw color.
+  #   @param [Object] renderer
+  #   @param [Integer] r Red
+  #   @param [Integer] g Green
+  #   @param [Integer] b Blue
+  #   @param [Integer] a Alpha
+
+  # @!method self.render_rectangle(renderer, x, y, w, h)
+  #   Renders a rectangle.
+  #   @param [Object] renderer
+  #   @param [Integer] x
+  #   @param [Integer] y
+  #   @param [Integer] w Width
+  #   @param [Integer] h Height
 end
