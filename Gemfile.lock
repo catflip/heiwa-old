@@ -4,14 +4,13 @@ GEM
     rake (13.1.0)
     rake-compiler (1.2.5)
       rake
-    rb_sys (0.9.83)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
   rake-compiler (~> 1.2)
-  rb_sys (~> 0.9.83)
 
 BUNDLED WITH
-   2.4.19
+   2.5.1
