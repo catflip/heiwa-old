@@ -22,3 +22,9 @@ VALUE render_clear(VALUE _self, VALUE renderer);
 
 // Runs `SDL_RenderPresent`
 VALUE render_present(VALUE _self, VALUE renderer);
+
+// Runs `SDL_SetRenderDrawColor`
+VALUE render_draw_color(VALUE _self, VALUE renderer, VALUE r, VALUE g, VALUE b, VALUE a);
+
+// Runs `SDL_FillRect`
+VALUE render_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, VALUE h);
