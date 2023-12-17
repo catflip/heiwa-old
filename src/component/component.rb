@@ -1,5 +1,5 @@
 class Component
-  attr_accessor :x, :y, :children
+  attr_accessor :x, :y, :children, :parent
 
   # Creates an empty component.
   # This will do nothing in itself and will not render.
@@ -7,10 +7,12 @@ class Component
   # @param [Integer] x
   # @param [Integer] y
   # @param [Array<Component>] children
-  def initialize(x:, y:, children: [])
+  # @param [Component] parent
+  def initialize(x:, y:, children: [], parent: nil)
     @x = x
     @y = y
     @children = children
+    @parent = parent
   end
 
   # Sets filtered properties on the current component.
@@ -35,5 +37,11 @@ class Component
   # Adds the component to the root tree.
   def add_to_root
     $WIDGETS[$WIDGET_BUFFER].add_component(self)
+  end
+
+  # Adds a child to the `children` array
+  def add_child(component)
+    component.parent = self
+    children << component
   end
 end
