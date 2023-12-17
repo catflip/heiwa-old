@@ -11,7 +11,7 @@ VALUE info()
 
 VALUE init_sdl()
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		printf("Failed to initialize SDL: %s\n", SDL_GetError());
 		rb_raise(rb_eRuntimeError, "Failed to initialize SDL");
