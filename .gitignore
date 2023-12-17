@@ -1,2 +1,6 @@
+# VSCode
+.vscode/
+
+# Native
 /tmp
 /lib/architect/architect.so
