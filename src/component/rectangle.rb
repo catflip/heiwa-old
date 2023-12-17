@@ -1,6 +1,9 @@
 require_relative 'component'
+require_relative 'dynamic_size'
 
 class Rectangle < Component
+  include DynamicSize
+
   attr_accessor :width, :height, :color
 
   # Creates a Rectangle.
@@ -26,7 +29,7 @@ class Rectangle < Component
 
   def render(renderer)
     Architect.render_draw_color(renderer, *@color.to_a)
-    Architect.render_rectangle(renderer, @x, @y, @width, @height)
+    Architect.render_rectangle(renderer, @x, @y, dynamic_width, dynamic_height)
 
     # Draw children
     children.each { |c| c.render(renderer) }
