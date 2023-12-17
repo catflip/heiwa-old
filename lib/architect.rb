@@ -48,3 +48,18 @@ module Architect
   #   @param [Integer] w Width
   #   @param [Integer] h Height
 end
+
+module Screen
+  # @!method self.size(display_index)
+  #   Gets the size of the screen at `display_index`.
+  #   @param [Integer] display_index
+  #   @return [Hash] The `width` and `height` in a hash.
+
+  def self.width(display_index)
+    size(display_index)[:width]
+  end
+
+  def self.height(display_index)
+    size(display_index)[:height]
+  end
+end
