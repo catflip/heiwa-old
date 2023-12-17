@@ -56,9 +56,17 @@ def make(component, options)
   }
 
   # Create the component
+  # @type [Component]
   component = component_map[component].new(**options)
 
-  yield(component, component.children) if block_given?
+  # Children proxy
+  # This is required since we must use the `add_child` method on the component
+  # instead, since it will set the `@parent` of the child element.
+  children = []
+
+  yield(component, children) if block_given?
+
+  children.each { |c| component.add_child(c) }
 
   component
 end
