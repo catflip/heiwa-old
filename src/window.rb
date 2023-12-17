@@ -35,6 +35,9 @@ class Window
       post_actions << -> { Architect.set_hint('SDL_HINT_X11_WINDOW_TYPE', '') }
     end
 
+    # Stop disabling the compositor
+    Architect.set_hint('SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR', '0')
+
     # Spawn windows
     @window_ptr = Architect.create_window(@options)
 
