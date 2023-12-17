@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "render.h"
+#include "screen.h"
 
 VALUE info()
 {
@@ -35,4 +36,8 @@ void Init_architect()
 	rb_define_module_function(architect, "render_present", render_present, 1);
 	rb_define_module_function(architect, "render_draw_color", render_draw_color, 5);
 	rb_define_module_function(architect, "render_rectangle", render_rectangle, 5);
+
+	VALUE screen = rb_define_module("Screen");
+
+	rb_define_module_function(screen, "size", screen_size, 1);
 }
