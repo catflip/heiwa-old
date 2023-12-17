@@ -5,8 +5,9 @@
 
 #include "util.h"
 
-struct WINDOW_PARAMS {
-	char* title;
+struct WINDOW_PARAMS
+{
+	char *title;
 	int width;
 	int height;
 };
