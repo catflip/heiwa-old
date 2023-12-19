@@ -8,26 +8,23 @@ class Rectangle < Component
 
   # Creates a Rectangle.
   #
-  # @param [Integer] x
-  # @param [Integer] y
-  # @param [Integer] width
-  # @param [Integer] height
-  # @param [Integer] rounding
-  # @param [Color] color
-  # @param [Array<Component>] children
+  # @param [Hash] options
+  # @option options [Integer] :x
+  # @option options [Integer] :y
+  # @option options [Integer] :width
+  # @option options [Integer] :height
+  # @option options [Integer] :rounding
+  # @option options [Color] :color
+  # @option options [Array<Component>] :children
   def initialize(
-    x: 0, y: 0,
-    width: 0, height: 0,
-    rounding: nil,
-    color: Color.new(255, 255, 255, 255),
-    children: []
+    options
   )
-    super(x:, y:, children:)
+    super(x: options[:x], y: options[:y], children: options[:children])
 
-    @width = width
-    @height = height
-    @rounding = rounding
-    @color = color
+    @width = options[:width] || 0
+    @height = options[:height] || 0
+    @rounding = options[:rounding]
+    @color = options[:color] || Color.new(255, 255, 255, 255)
   end
 
   def render(renderer)
