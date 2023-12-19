@@ -38,7 +38,7 @@ VALUE create_renderer(VALUE _self, VALUE window)
 	SDL_Window *win;
 	Data_Get_Struct(window, SDL_Window, win);
 
-	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	VALUE object = Data_Wrap_Struct(rb_cObject, 0, free_ptr, rend);
 
@@ -98,3 +98,45 @@ VALUE render_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, V
 
 	SDL_RenderFillRect(rend, &rect);
 }
+
+VALUE render_rounded_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, VALUE h, VALUE rad)
+{
+	SDL_Renderer *rend = get_renderer(renderer);
+
+	Check_Type(x, T_FIXNUM);
+	Check_Type(y, T_FIXNUM);
+	Check_Type(w, T_FIXNUM);
+	Check_Type(h, T_FIXNUM);
+	Check_Type(rad, T_FIXNUM);
+
+	int pos_x = NUM2INT(x);
+	int pos_y = NUM2INT(y);
+	int width = NUM2INT(w);
+	int height = NUM2INT(h);
+	int radius = NUM2INT(rad);
+
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(rend, &r, &g, &b, &a);
+
+	int pies[4][5] = {
+		{pos_x + radius, pos_y + radius, radius, -180, -90},
+		{pos_x + width - radius, pos_y + radius, radius, -90, 0},
+		{pos_x + radius, pos_y + height - radius, radius, -270, -180},
+		{pos_x + width - radius, pos_y + height - radius, radius, 0, 90},
+	};
+
+	for (size_t i = 0; i < sizeof(pies) / sizeof(pies[0]); i++)
+	{
+		aaFilledPieRGBA(rend, pies[i][0], pies[i][1], pies[i][2], pies[i][2], pies[i][3], pies[i][4], 0, r, g, b, a);
+	}
+
+	// We need to deduct a single pixel from the width and height for some reason??
+	int boxes[2][4] = {
+		{pos_x, pos_y + radius, pos_x + width - 1, pos_y + height - radius},
+		{pos_x + radius, pos_y, pos_x + width - radius, pos_y + height - 1}};
+
+	for (size_t i = 0; i < sizeof(boxes) / sizeof(boxes[0]); i++)
+	{
+		boxRGBA(rend, boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3], r, g, b, a);
+	}
+};

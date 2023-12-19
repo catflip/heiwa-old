@@ -37,6 +37,7 @@ void Init_architect()
 	rb_define_module_function(architect, "render_present", render_present, 1);
 	rb_define_module_function(architect, "render_draw_color", render_draw_color, 5);
 	rb_define_module_function(architect, "render_rectangle", render_rectangle, 5);
+	rb_define_module_function(architect, "render_rounded_rectangle", render_rounded_rectangle, 6);
 
 	VALUE screen = rb_define_module("Screen");
 

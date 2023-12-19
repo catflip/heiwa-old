@@ -2,10 +2,11 @@
 
 #include <ruby.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 #include "util.h"
-
 #include "gfx.h"
+
 struct WINDOW_PARAMS
 {
 	char *title;
@@ -30,3 +31,6 @@ VALUE render_draw_color(VALUE _self, VALUE renderer, VALUE r, VALUE g, VALUE b, 
 
 // Runs `SDL_FillRect`
 VALUE render_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, VALUE h);
+
+// Draws a rounded rectangle.
+VALUE render_rounded_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, VALUE h, VALUE rad);
