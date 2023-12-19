@@ -53,8 +53,8 @@ module DynamicSize
   def calculate_string(str, parent_size)
     # Handle percentage or number conversion
     if str.end_with? '%'
-      perc = str.gsub('%', '').to_i
-      (parent_size / 100) * perc
+      perc = str.gsub('%', '').to_f
+      ((parent_size.fdiv 100) * perc).floor
     else
       str.to_i
     end
