@@ -5,6 +5,7 @@
 
 #include "util.h"
 
+#include "gfx.h"
 struct WINDOW_PARAMS
 {
 	char *title;

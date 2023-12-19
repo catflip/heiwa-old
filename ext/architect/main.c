@@ -2,6 +2,7 @@
 #include <ruby.h>
 #include <SDL2/SDL.h>
 
+#include "gfx.h"
 #include "render.h"
 #include "screen.h"
 
