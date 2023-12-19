@@ -26,7 +26,7 @@ threads = {}
 # @param [Widget] widget
 $WIDGETS.each do |name, widget|
   threads[name] = Thread.new do
-    win_opts = widget.options.filter { |k, _| %i[title x y width height type].include? k }
+    win_opts = widget.options.filter { |k, _| %i[title x y width height type background_color].include? k }
     puts win_opts.inspect
 
     window = Window.new win_opts
