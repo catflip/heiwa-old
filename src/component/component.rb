@@ -1,18 +1,22 @@
 class Component
-  attr_accessor :x, :y, :children, :parent
+  attr_accessor :x, :y, :children, :parent, :position
 
   # Creates an empty component.
   # This will do nothing in itself and will not render.
   #
-  # @param [Integer] x
-  # @param [Integer] y
-  # @param [Array<Component>] children
-  # @param [Component] parent
-  def initialize(x:, y:, children: [], parent: nil)
-    @x = x
-    @y = y
-    @children = children
-    @parent = parent
+  # @param [Hash] options
+  # @option options [Integer] :x
+  # @option options [Integer] :y
+  # @option options [Array<Component>] :children
+  # @option options [Component] :parent
+  # @option options [Symbol] :position
+  #   Valid options are `:absolute` or `:dynamic`.
+  def initialize(options)
+    @x = options[:x] || 0
+    @y = options[:y] || 0
+    @children = options[:children] || []
+    @parent = options[:parent]
+    @position = options[:position] || :dynamic
   end
 
   # Sets filtered properties on the current component.

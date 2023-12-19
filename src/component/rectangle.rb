@@ -1,8 +1,10 @@
 require_relative 'component'
 require_relative 'dynamic_size'
+require_relative 'dynamic_position'
 
 class Rectangle < Component
   include DynamicSize
+  include DynamicPosition
 
   attr_accessor :width, :height, :color
 
@@ -28,12 +30,15 @@ class Rectangle < Component
   end
 
   def render(renderer)
+    # Dynamic position
+    x, y = position == :dynamic ? [dynamic_x, dynamic_y] : [@x, @y]
+
     Architect.render_draw_color(renderer, *@color.to_a)
 
     if @rounding.nil?
-      Architect.render_rectangle(renderer, @x, @y, dynamic_width, dynamic_height)
+      Architect.render_rectangle(renderer, x, y, dynamic_width, dynamic_height)
     else
-      Architect.render_rounded_rectangle(renderer, @x, @y, dynamic_width, dynamic_height, @rounding)
+      Architect.render_rounded_rectangle(renderer, x, y, dynamic_width, dynamic_height, @rounding)
     end
 
     # Draw children
