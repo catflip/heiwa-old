@@ -12,11 +12,13 @@ class Rectangle < Component
   # @param [Integer] y
   # @param [Integer] width
   # @param [Integer] height
+  # @param [Integer] rounding
   # @param [Color] color
   # @param [Array<Component>] children
   def initialize(
     x: 0, y: 0,
     width: 0, height: 0,
+    rounding: nil,
     color: Color.new(255, 255, 255, 255),
     children: []
   )
@@ -24,12 +26,18 @@ class Rectangle < Component
 
     @width = width
     @height = height
+    @rounding = rounding
     @color = color
   end
 
   def render(renderer)
     Architect.render_draw_color(renderer, *@color.to_a)
-    Architect.render_rectangle(renderer, @x, @y, dynamic_width, dynamic_height)
+
+    if @rounding.nil?
+      Architect.render_rectangle(renderer, @x, @y, dynamic_width, dynamic_height)
+    else
+      Architect.render_rounded_rectangle(renderer, @x, @y, dynamic_width, dynamic_height, @rounding)
+    end
 
     # Draw children
     children.each { |c| c.render(renderer) }
