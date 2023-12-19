@@ -47,6 +47,15 @@ module Architect
   #   @param [Integer] y
   #   @param [Integer] w Width
   #   @param [Integer] h Height
+
+  # @!method self.render_rounded_rectangle(renderer, x, y, w, h, r)
+  #   Renders a rounded rectangle.
+  #   @param [Object] renderer
+  #   @param [Integer] x
+  #   @param [Integer] y
+  #   @param [Integer] w Width
+  #   @param [Integer] h Height
+  #   @param [Integer] r Rounding
 end
 
 module Screen
