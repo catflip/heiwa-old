@@ -72,3 +72,9 @@ module Screen
     size(display_index)[:height]
   end
 end
+
+module Event
+  # @!method self.poll()
+  #   Polls an SDL_Event. Returns a custom event schema.
+  #   @return [Hash]
+end
