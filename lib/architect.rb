@@ -62,6 +62,10 @@ module Architect
   #   @param [Object] window
   #   @param [Object] renderer
 
+  # @!method self.render_delay()
+  #   Delay rendering
+  #   @param [Integer] millis
+
   # @!method self.get_ticks()
   #   Get millis since start
   #   @return [Integer] ticks

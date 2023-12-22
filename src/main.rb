@@ -34,12 +34,16 @@ $WIDGETS.each do |name, widget|
   threads[name] = Thread.new do
     win_opts = widget.options.filter { |k, _| %i[title x y width height type background_color].include? k }
 
+    max_fps = 60
+    max_frametime = 1000.fdiv(max_fps)
+
     window = Window.new win_opts
     renderer = window.renderer
 
     loop do
       widget.update
 
+      start_time = Architect.get_ticks
       window.render do
         # Render the widget components
         # @param [Component] component
@@ -47,6 +51,10 @@ $WIDGETS.each do |name, widget|
           component.render(renderer)
         end
       end
+      end_time = Architect.get_ticks
+
+      frame_time = start_time - end_time
+      Architect.render_delay(max_frametime - frame_time) if frame_time < max_frametime
     end
 
     window.exit
