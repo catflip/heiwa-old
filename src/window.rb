@@ -1,5 +1,3 @@
-require_relative 'util'
-
 class Window
   attr_reader :window_ptr, :renderer
 

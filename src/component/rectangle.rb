@@ -1,7 +1,3 @@
-require_relative 'component'
-require_relative 'dynamic_size'
-require_relative 'dynamic_position'
-
 class Rectangle < Component
   include DynamicSize
   include DynamicPosition

@@ -1,10 +1,16 @@
 require 'fileutils'
+require 'zeitwerk'
 
 require_relative '../lib/architect'
-
-require_relative 'config'
-require_relative 'window'
 require_relative 'widget'
+
+# Zeitwerk ----
+loader = Zeitwerk::Loader.new
+loader.push_dir(__dir__)
+loader.ignore("#{__dir__}/widget.rb")
+loader.collapse("#{__dir__}/component")
+loader.setup
+# -------------
 
 Architect.init_sdl
 

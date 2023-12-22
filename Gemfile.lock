@@ -4,6 +4,7 @@ GEM
     rake (13.1.0)
     rake-compiler (1.2.5)
       rake
+    zeitwerk (2.6.12)
 
 PLATFORMS
   ruby
@@ -11,6 +12,7 @@ PLATFORMS
 
 DEPENDENCIES
   rake-compiler (~> 1.2)
+  zeitwerk (~> 2.6)
 
 BUNDLED WITH
    2.5.1

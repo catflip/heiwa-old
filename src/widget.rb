@@ -1,9 +1,3 @@
-require_relative 'component/component'
-require_relative 'component/rectangle'
-
-# We don't really need these requires, but they are needed for widgets.
-require_relative 'util'
-
 # Total list of registered widgets.
 # @type [Array<Widget>]
 $WIDGETS = {}
