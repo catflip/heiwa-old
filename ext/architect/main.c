@@ -33,6 +33,7 @@ void Init_architect()
 	rb_define_module_function(architect, "create_window", create_window, 1);
 	rb_define_module_function(architect, "create_renderer", create_renderer, 1);
 
+	rb_define_module_function(architect, "render_delay", render_delay, 1);
 	rb_define_module_function(architect, "render_clear", render_clear, 1);
 	rb_define_module_function(architect, "render_present", render_present, 1);
 	rb_define_module_function(architect, "render_draw_color", render_draw_color, 5);

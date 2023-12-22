@@ -20,6 +20,9 @@ VALUE create_window(VALUE _self, VALUE window_params);
 // Creates a renderer for a window, and returns the pointer.
 VALUE create_renderer(VALUE _self, VALUE window);
 
+// Runs `SDL_Delay`
+VALUE render_delay(VALUE _self, VALUE d);
+
 // Runs `SDL_RenderClear`
 VALUE render_clear(VALUE _self, VALUE renderer);
 

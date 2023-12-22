@@ -45,6 +45,12 @@ VALUE create_renderer(VALUE _self, VALUE window)
 	return object;
 }
 
+VALUE render_delay(VALUE _self, VALUE d)
+{
+	int delay = NUM2INT(d);
+	SDL_Delay(delay);
+}
+
 VALUE render_clear(VALUE _self, VALUE renderer)
 {
 	SDL_Renderer *rend = get_renderer(renderer);
