@@ -47,8 +47,6 @@ class Window
   end
 
   def render
-    Architect.render_delay(1000 / 60)
-
     # Clear the screen using the background color
     Architect.render_draw_color(@renderer, *@options[:background_color].to_a)
     Architect.render_clear @renderer
@@ -56,5 +54,7 @@ class Window
     yield
 
     Architect.render_present @renderer
+
+    Architect.render_delay(1000 / 60)
   end
 end
