@@ -33,6 +33,8 @@ class Widget
       .each do |ev|
       ev[:block].call event
     end
+
+    update
   end
 
   # Add a new event
