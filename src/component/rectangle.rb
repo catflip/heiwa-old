@@ -2,6 +2,7 @@ class Rectangle < Component
   include DynamicSize
   include DynamicPosition
   include EventHandler
+  include Bounds
 
   attr_accessor :width, :height, :color
 
@@ -40,5 +41,15 @@ class Rectangle < Component
 
     # Draw children
     children.each { |c| c.render(renderer) }
+  end
+
+  def add_event(event, only_hover: true, &block)
+    super(event) do |ev|
+      # Return if it's a mouse event, hover_only is true, and the position is
+      # not within the rectangle.
+      next if %i[mouse_down mouse_up].include?(event) && only_hover == true && !(within_bounds? ev.x, ev.y)
+
+      block.call ev
+    end
   end
 end
