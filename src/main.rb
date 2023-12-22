@@ -27,7 +27,6 @@ threads = {}
 $WIDGETS.each do |name, widget|
   threads[name] = Thread.new do
     win_opts = widget.options.filter { |k, _| %i[title x y width height type background_color].include? k }
-    puts win_opts.inspect
 
     window = Window.new win_opts
     renderer = window.renderer
