@@ -1,6 +1,7 @@
 class Rectangle < Component
   include DynamicSize
   include DynamicPosition
+  include EventHandler
 
   attr_accessor :width, :height, :color
 
