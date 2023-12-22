@@ -5,6 +5,7 @@
 #include "gfx.h"
 #include "render.h"
 #include "screen.h"
+#include "event.h"
 
 VALUE info()
 {
@@ -43,4 +44,8 @@ void Init_architect()
 	VALUE screen = rb_define_module("Screen");
 
 	rb_define_module_function(screen, "size", screen_size, 1);
+
+	VALUE event = rb_define_module("Event");
+
+	rb_define_module_function(event, "poll", poll_event, 0);
 }
