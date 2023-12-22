@@ -38,7 +38,7 @@ VALUE create_renderer(VALUE _self, VALUE window)
 	SDL_Window *win;
 	Data_Get_Struct(window, SDL_Window, win);
 
-	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
 
 	VALUE object = Data_Wrap_Struct(rb_cObject, 0, free_ptr, rend);
 
