@@ -40,12 +40,9 @@ void Init_architect()
 	rb_define_module_function(architect, "render_draw_color", render_draw_color, 5);
 	rb_define_module_function(architect, "render_rectangle", render_rectangle, 5);
 	rb_define_module_function(architect, "render_rounded_rectangle", render_rounded_rectangle, 6);
+	rb_define_module_function(architect, "poll_event", poll_event, 0);
 
 	VALUE screen = rb_define_module("Screen");
 
 	rb_define_module_function(screen, "size", screen_size, 1);
-
-	VALUE event = rb_define_module("Event");
-
-	rb_define_module_function(event, "poll", poll_event, 0);
 }

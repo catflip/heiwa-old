@@ -56,6 +56,10 @@ module Architect
   #   @param [Integer] w Width
   #   @param [Integer] h Height
   #   @param [Integer] r Rounding
+
+  # @!method self.poll_event()
+  #   Polls an SDL_Event. Returns a custom event schema.
+  #   @return [Hash]
 end
 
 module Screen
@@ -71,10 +75,4 @@ module Screen
   def self.height(display_index)
     size(display_index)[:height]
   end
-end
-
-module Event
-  # @!method self.poll()
-  #   Polls an SDL_Event. Returns a custom event schema.
-  #   @return [Hash]
 end
