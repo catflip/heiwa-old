@@ -1,4 +1,7 @@
 class Component
+  include UnwrapReactive
+  include UnwrapComputed
+
   attr_accessor :x, :y, :children, :parent, :widget, :position
 
   # Creates an empty component.
@@ -12,12 +15,14 @@ class Component
   # @option options [Symbol] :position
   #   Valid options are `:absolute` or `:dynamic`.
   def initialize(options)
-    @x = options[:x] || 0
-    @y = options[:y] || 0
-    @children = options[:children] || []
-    @parent = options[:parent]
-    @position = options[:position] || :dynamic
+    @x = 0
+    @y = 0
+    @children = []
+    @position = :dynamic
+    @parent = nil
     @widget = nil
+
+    set(options)
   end
 
   # Sets filtered properties on the current component.
@@ -35,6 +40,17 @@ class Component
     end
   end
 
+  # Unwrap a variable in the component
+  def get(value)
+    if value.is_a? Reactive
+      unwrap_reactive value
+    elsif value.is_a? Computed
+      unwrap_computed value
+    else
+      value
+    end
+  end
+
   def render(_renderer)
     raise 'Render method must be defined!'
   end
@@ -48,6 +64,6 @@ class Component
   def add_child(component)
     component.parent = self
     component.widget = @widget
-    children << component
+    @children << component
   end
 end

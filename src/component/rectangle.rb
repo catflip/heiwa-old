@@ -19,19 +19,19 @@ class Rectangle < Component
   def initialize(
     options
   )
-    super(x: options[:x], y: options[:y], children: options[:children])
+    @width = 0
+    @height = 0
+    @rounding = nil
+    @color = Color.new(255, 255, 255)
 
-    @width = options[:width] || 0
-    @height = options[:height] || 0
-    @rounding = options[:rounding]
-    @color = options[:color] || Color.new(255, 255, 255, 255)
+    super(options)
   end
 
   def render(renderer)
     # Dynamic position
-    x, y = position == :dynamic ? [dynamic_x, dynamic_y] : [@x, @y]
+    x, y = position == :dynamic ? [dynamic_x, dynamic_y] : [get(@x), get(@y)]
 
-    Architect.render_draw_color(renderer, *@color.to_a)
+    Architect.render_draw_color(renderer, *get(@color).to_a)
 
     if @rounding.nil?
       Architect.render_rectangle(renderer, x, y, dynamic_width, dynamic_height)

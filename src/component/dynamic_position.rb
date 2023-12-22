@@ -13,7 +13,7 @@ module DynamicPosition
       raise 'Cannot use `dynamic_x` without `@x`. Does your component support `@x`?'
     end
 
-    @parent.nil? ? @x : @parent.x + @x
+    @parent.nil? ? get(@x) : get(@parent.x) + get(@x)
   end
 
   def dynamic_y
@@ -21,6 +21,6 @@ module DynamicPosition
       raise 'Cannot use `dynamic_y` without `@y`. Does your component support `@y`?'
     end
 
-    @parent.nil? ? @y : @parent.y + @y
+    @parent.nil? ? get(@y) : get(@parent.y) + get(@y)
   end
 end

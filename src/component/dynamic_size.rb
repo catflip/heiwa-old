@@ -4,15 +4,17 @@ module DynamicSize
       raise 'Cannot use `dynamic_width` without `@width`. Does your component support `@width`?'
     end
 
-    case @width
+    width = get(@width)
+
+    case width
     when Numeric
-      @width
+      width
     when Symbol
-      calculate_symbol @width, Screen.width(0), @parent&.dynamic_width
+      calculate_symbol width, Screen.width(0), @parent&.dynamic_width
     when String
-      calculate_string @width, (@parent&.dynamic_width || Screen.width(0))
+      calculate_string width, (@parent&.dynamic_width || Screen.width(0))
     when Proc
-      calculate_proc @width, (@parent&.dynamic_width || Screen.width(0))
+      calculate_proc width, (@parent&.dynamic_width || Screen.width(0))
     end
   end
 
@@ -21,15 +23,17 @@ module DynamicSize
       raise 'Cannot use `dynamic_height` without `@height`. Does your component support `@height`?'
     end
 
-    case @height
+    height = get(@height)
+
+    case height
     when Numeric
-      @height
+      height
     when Symbol
-      calculate_symbol @height, Screen.height(0), @parent&.dynamic_height
+      calculate_symbol height, Screen.height(0), @parent&.dynamic_height
     when String
-      calculate_string @height, (@parent&.dynamic_height || Screen.height(0))
+      calculate_string height, (@parent&.dynamic_height || Screen.height(0))
     when Proc
-      calculate_proc @height, (@parent&.dynamic_height || Screen.height(0))
+      calculate_proc height, (@parent&.dynamic_height || Screen.height(0))
     end
   end
 

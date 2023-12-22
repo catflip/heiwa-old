@@ -49,7 +49,7 @@ end
 
 This will tell Heiwa to load the file at `~/.config/heiwa/bar/init.rb`.
 
-#### Writing Your Widget
+#### Widget Markup
 
 In Heiwa, you create widgets in Ruby. Heiwa offers an expressive and powerful DSL for creating your widgets.
 
@@ -93,3 +93,76 @@ The code above will create a simple rectangle, that is the size of our widget, a
 
 > [!NOTE]
 > We use `add_to_root` instead of wrapping our elements in a `root` method, since we only have a single top-level component: the `panel`.
+
+#### Reactivity
+
+Now would be a great time to learn about **reactivity**.
+
+Heiwa implements *reactive variables*. This means that when updating the variable, there is no need for manual reassignment.
+
+Here is an example *without* reactive variables:
+
+```rb
+$x, $y = 0, 0
+
+root do |r, children|
+  fake_cursor = make  :rect,
+                      x: $x, y: $y, width: 20, height: 20,
+                      color: Color.new(255, 255, 255)
+
+  def update_position
+    fake_cursor.set({ x:, y: })
+  end
+
+  r.add_event :mouse_move do |event|
+    $x = event.x
+    $y = event.y
+    update_position
+  end
+
+  children << fake_cursor
+end
+```
+
+The example above will position a white rectangle to the cursor's current position.
+
+Here is the same example *with* reactive variables:
+
+```rb
+$x, $y = reactive(0), reactive(0)
+
+root do |r, children|
+  fake_cursor = make  :rect,
+                      x: $x, y: $y, width: 20, height: 20,
+                      color: Color.new(255, 255, 255)
+
+  r.add_event :mouse_move do |event|
+    $x.value = event.x
+    $y.value = event.y
+  end
+
+  children << cursor
+end
+```
+
+Much simpler, right?
+
+Heiwa components always know how to handle reactive variables, so you don't need to worry about doing anything else than just *making* them reactive using the `reactive` function.
+
+> [!note]
+> Notice how we don't use `.value` when passing it to the `make` function. This happens because `$x.value` will return the primitive value, while `$x` will return a `Reactive` class.
+
+Heiwa has another trick: *computed variables*. As the name suggests, computed variables *compute* values, instead of directly assigning them.
+
+For example, we can construct an RGB value automatically from an HSL value:
+
+```rb
+hue = 120
+color = computed { Color.from_hsl(hue, 100, 100) }
+
+root do |children|
+  children << make :rect, width: :max, height: :max, color:
+end
+```
+
+This way, if we ever change `hue`, `color` will change along with it.

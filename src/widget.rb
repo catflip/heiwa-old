@@ -1,3 +1,6 @@
+require_relative 'reactivity/reactive'
+require_relative 'reactivity/computed'
+
 # Total list of registered widgets.
 # @type [Array<Widget>]
 $WIDGETS = {}
@@ -86,7 +89,10 @@ def make(component, options)
 
   yield(component, children) if block_given?
 
-  children.each { |c| component.add_child(c) }
+  children.each do |c|
+    puts c
+    component.add_child(c)
+  end
 
   component
 end
