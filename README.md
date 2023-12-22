@@ -103,11 +103,11 @@ Heiwa implements *reactive variables*. This means that when updating the variabl
 Here is an example *without* reactive variables:
 
 ```rb
-$x, $y = 0, 0
+x, y = 0, 0
 
 root do |r, children|
   fake_cursor = make  :rect,
-                      x: $x, y: $y, width: 20, height: 20,
+                      x:, y:, width: 20, height: 20,
                       color: Color.new(255, 255, 255)
 
   def update_position
@@ -115,8 +115,8 @@ root do |r, children|
   end
 
   r.add_event :mouse_move do |event|
-    $x = event.x
-    $y = event.y
+    x = event.x
+    y = event.y
     update_position
   end
 
@@ -129,19 +129,19 @@ The example above will position a white rectangle to the cursor's current positi
 Here is the same example *with* reactive variables:
 
 ```rb
-$x, $y = reactive(0), reactive(0)
+x, y = reactive(0), reactive(0)
 
 root do |r, children|
   fake_cursor = make  :rect,
-                      x: $x, y: $y, width: 20, height: 20,
+                      x:, y:, width: 20, height: 20,
                       color: Color.new(255, 255, 255)
 
   r.add_event :mouse_move do |event|
-    $x.value = event.x
-    $y.value = event.y
+    x.value = event.x
+    y.value = event.y
   end
 
-  children << cursor
+  children << fake_cursor
 end
 ```
 
