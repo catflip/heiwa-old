@@ -36,3 +36,8 @@ VALUE to_sym(const char *str)
 {
 	return ID2SYM(rb_intern(str));
 }
+
+VALUE get_ticks()
+{
+	return INT2NUM(SDL_GetTicks());
+}

@@ -42,6 +42,7 @@ void Init_architect()
 	rb_define_module_function(architect, "render_rounded_rectangle", render_rounded_rectangle, 6);
 	rb_define_module_function(architect, "render_cleanup", render_cleanup, 0);
 	rb_define_module_function(architect, "poll_event", poll_event, 0);
+	rb_define_module_function(architect, "get_ticks", get_ticks, 0);
 
 	VALUE screen = rb_define_module("Screen");
 

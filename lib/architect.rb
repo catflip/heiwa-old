@@ -62,6 +62,10 @@ module Architect
   #   @param [Object] window
   #   @param [Object] renderer
 
+  # @!method self.get_ticks()
+  #   Get millis since start
+  #   @return [Integer] ticks
+
   # @!method self.poll_event()
   #   Polls an SDL_Event. Returns a custom event schema.
   #   @return [Hash]

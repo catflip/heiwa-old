@@ -17,3 +17,6 @@ VALUE set_hint(VALUE _self, VALUE n, VALUE v);
 
 // Automatically create a symbol from a string
 VALUE to_sym(const char *str);
+
+// Get millis since start
+VALUE get_ticks();
