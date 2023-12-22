@@ -24,3 +24,8 @@ VALUE set_hint(VALUE _self, VALUE n, VALUE v)
 
 	return Qnil;
 }
+
+VALUE to_sym(const char *str)
+{
+	return ID2SYM(rb_intern(str));
+}

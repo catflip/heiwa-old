@@ -10,8 +10,8 @@ VALUE screen_size(VALUE _self, VALUE display_index)
 	SDL_GetCurrentDisplayMode(index, &dm);
 
 	VALUE hash = rb_hash_new();
-	rb_hash_aset(hash, ID2SYM(rb_intern("width")), INT2NUM(dm.w));
-	rb_hash_aset(hash, ID2SYM(rb_intern("height")), INT2NUM(dm.h));
+	rb_hash_aset(hash, to_sym("width"), INT2NUM(dm.w));
+	rb_hash_aset(hash, to_sym("height"), INT2NUM(dm.h));
 
 	return hash;
 }

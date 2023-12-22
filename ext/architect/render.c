@@ -4,11 +4,11 @@ VALUE create_window(VALUE _self, VALUE window_params)
 {
 	Check_Type(window_params, T_HASH);
 
-	VALUE _title = rb_hash_aref(window_params, ID2SYM(rb_intern("title")));
-	VALUE _x = rb_hash_aref(window_params, ID2SYM(rb_intern("x")));
-	VALUE _y = rb_hash_aref(window_params, ID2SYM(rb_intern("y")));
-	VALUE _width = rb_hash_aref(window_params, ID2SYM(rb_intern("width")));
-	VALUE _height = rb_hash_aref(window_params, ID2SYM(rb_intern("height")));
+	VALUE _title = rb_hash_aref(window_params, to_sym("title"));
+	VALUE _x = rb_hash_aref(window_params, to_sym("x"));
+	VALUE _y = rb_hash_aref(window_params, to_sym("y"));
+	VALUE _width = rb_hash_aref(window_params, to_sym("width"));
+	VALUE _height = rb_hash_aref(window_params, to_sym("height"));
 
 	Check_Type(_title, T_STRING);
 	Check_Type(_x, T_FIXNUM);

@@ -11,3 +11,6 @@ SDL_Renderer *get_renderer(VALUE renderer);
 
 // Set an SDL hint
 VALUE set_hint(VALUE _self, VALUE n, VALUE v);
+
+// Automatically create a symbol from a string
+VALUE to_sym(const char *str);
