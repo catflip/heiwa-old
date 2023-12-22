@@ -8,7 +8,7 @@ require_relative 'widget'
 loader = Zeitwerk::Loader.new
 loader.push_dir(__dir__)
 loader.ignore("#{__dir__}/widget.rb")
-loader.collapse("#{__dir__}/component")
+loader.collapse("#{__dir__}/*")
 loader.setup
 # -------------
 
