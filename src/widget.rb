@@ -53,6 +53,9 @@ def make(component, options)
   # @type [Component]
   component = component_map[component].new(**options)
 
+  # Set the widget
+  component.widget = $WIDGETS[$WIDGET_BUFFER]
+
   # Children proxy
   # This is required since we must use the `add_child` method on the component
   # instead, since it will set the `@parent` of the child element.

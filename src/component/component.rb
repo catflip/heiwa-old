@@ -1,5 +1,5 @@
 class Component
-  attr_accessor :x, :y, :children, :parent, :position
+  attr_accessor :x, :y, :children, :parent, :widget, :position
 
   # Creates an empty component.
   # This will do nothing in itself and will not render.
@@ -17,6 +17,7 @@ class Component
     @children = options[:children] || []
     @parent = options[:parent]
     @position = options[:position] || :dynamic
+    @widget = nil
   end
 
   # Sets filtered properties on the current component.
@@ -46,6 +47,7 @@ class Component
   # Adds a child to the `children` array
   def add_child(component)
     component.parent = self
+    component.widget = @widget
     children << component
   end
 end
