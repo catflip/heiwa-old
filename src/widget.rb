@@ -72,6 +72,7 @@ end
 # @param [Hash] options The options related to the component.
 def make(component, options)
   component_map = {
+    root: Root,
     rect: Rectangle
   }
 
@@ -90,9 +91,23 @@ def make(component, options)
   yield(component, children) if block_given?
 
   children.each do |c|
-    puts c
     component.add_child(c)
   end
 
   component
+end
+
+# Creates a `Root` component.
+# This is simply a helper method to place components in without
+# explicitly adding it to the widget root.
+#
+# `add_to_root` musn't be called. It is implicitly added to the root.
+def root(&)
+  raise 'There must only be one Root component.' if $__HAS_ROOT == true
+
+  $__HAS_ROOT = true
+
+  # @type [Root]
+  component = make(:root, {}, &)
+  component.add_to_root
 end
