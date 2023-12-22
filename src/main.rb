@@ -38,6 +38,8 @@ $WIDGETS.each do |name, widget|
     renderer = window.renderer
 
     loop do
+      widget.update
+
       window.render do
         # Render the widget components
         # @param [Component] component

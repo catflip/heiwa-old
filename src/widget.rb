@@ -3,15 +3,38 @@
 $WIDGETS = {}
 
 class Widget
-  attr_reader :options, :components
+  attr_reader :options, :components, :events
 
   def initialize(options, components)
     @options = options
     @components = components
+
+    # @type [Array<Proc>]
+    @events = []
   end
 
   def add_component(component)
     @components << component
+  end
+
+  # Runs before every render tick
+  def update
+    event = Architect.poll_event
+    return if event.nil?
+
+    # @type [Event]
+    event = Event.from_hash(event)
+
+    @events
+      .filter { |ev| ev[:type] == event.type }
+      .each do |ev|
+      ev[:block].call event
+    end
+  end
+
+  # Add a new event
+  def register_event(id, type, block)
+    @events << { id:, type:, block: }
   end
 end
 
