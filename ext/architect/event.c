@@ -38,6 +38,13 @@ VALUE poll_event(VALUE _self)
 		rb_hash_aset(hash, to_sym("y"), INT2NUM(e.button.y));
 		break;
 
+	case SDL_MOUSEMOTION:
+		rb_hash_aset(hash, to_sym("x"), INT2NUM(e.motion.x));
+		rb_hash_aset(hash, to_sym("y"), INT2NUM(e.motion.y));
+		rb_hash_aset(hash, to_sym("x_relative"), INT2NUM(e.motion.xrel));
+		rb_hash_aset(hash, to_sym("y_relative"), INT2NUM(e.motion.yrel));
+		break;
+
 	default:
 		return Qnil;
 	}
