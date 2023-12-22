@@ -37,3 +37,6 @@ VALUE render_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, V
 
 // Draws a rounded rectangle.
 VALUE render_rounded_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE w, VALUE h, VALUE rad);
+
+// Cleans up window and renderers
+VALUE render_cleanup(VALUE _self, VALUE window, VALUE renderer);

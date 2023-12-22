@@ -55,6 +55,10 @@ class Window
 
     Architect.render_present @renderer
 
-    Architect.render_delay(1000 / 60)
+    # Architect.render_delay(1000 / 60)
+  end
+
+  def exit
+    Architect.render_cleanup(@window_ptr, @renderer)
   end
 end

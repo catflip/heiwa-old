@@ -146,3 +146,12 @@ VALUE render_rounded_rectangle(VALUE _self, VALUE renderer, VALUE x, VALUE y, VA
 		boxRGBA(rend, boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3], r, g, b, a);
 	}
 };
+
+VALUE render_cleanup(VALUE _self, VALUE window, VALUE renderer)
+{
+	SDL_Renderer *rend = get_renderer(renderer);
+	SDL_Window *win = get_window(window);
+
+	SDL_DestroyWindow(win);
+	SDL_DestroyRenderer(rend);
+}

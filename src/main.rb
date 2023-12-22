@@ -48,6 +48,8 @@ $WIDGETS.each do |name, widget|
         end
       end
     end
+
+    window.exit
   end
 end
 

@@ -57,6 +57,11 @@ module Architect
   #   @param [Integer] h Height
   #   @param [Integer] r Rounding
 
+  # @!method self.render_cleanup()
+  #   Cleans up a renderer and a window object. Does not exit SDL.
+  #   @param [Object] window
+  #   @param [Object] renderer
+
   # @!method self.poll_event()
   #   Polls an SDL_Event. Returns a custom event schema.
   #   @return [Hash]

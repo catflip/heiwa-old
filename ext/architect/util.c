@@ -12,6 +12,13 @@ SDL_Renderer *get_renderer(VALUE renderer)
 	return rend;
 }
 
+SDL_Window *get_window(VALUE window)
+{
+	SDL_Window *win;
+	Data_Get_Struct(window, SDL_Window, win);
+	return win;
+}
+
 VALUE set_hint(VALUE _self, VALUE n, VALUE v)
 {
 	Check_Type(n, T_STRING);

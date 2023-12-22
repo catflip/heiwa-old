@@ -9,6 +9,9 @@ void free_ptr(void *ptr);
 // Gets the renderer pointer from an object.
 SDL_Renderer *get_renderer(VALUE renderer);
 
+// Gets the window pointer from an object.
+SDL_Window *get_window(VALUE window);
+
 // Set an SDL hint
 VALUE set_hint(VALUE _self, VALUE n, VALUE v);
 
