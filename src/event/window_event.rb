@@ -1,6 +1,8 @@
 class WindowEvent < Event
   attr_reader :window_id
 
+  set_aliases :window_event
+
   def initialize(options)
     super(options)
 
