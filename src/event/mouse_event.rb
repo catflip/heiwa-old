@@ -1,6 +1,8 @@
 class MouseEvent < Event
   attr_reader :window_id, :state, :button, :clicks, :x, :y
 
+  set_aliases :mouse_down, :mouse_up, :mouse_click, :click
+
   def initialize(options)
     super(options)
 
