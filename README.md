@@ -94,6 +94,25 @@ The code above will create a simple rectangle, that is the size of our widget, a
 > [!NOTE]
 > We use `add_to_root` instead of wrapping our elements in a `root` method, since we only have a single top-level component: the `panel`.
 
+#### Events
+
+In Heiwa, a component can have *registered events*. When an event is triggered, your code block will also get executed.
+
+Here is an example, where we print `Hello, world!` when a rectangle is clicked on:
+
+```rb
+click_area = make :rect, width: 200, height: 200, color: Color.new(255, 0, 0)
+
+click_area.add_event :mouse_up do |event|
+  next unless event.left?
+
+  puts 'Hello, world!'
+end
+```
+
+> [!important]
+> If you want to create guard clauses or want to `return` from the event, make sure that you **always** use `next` instead of `return` or `break`.
+
 #### Reactivity
 
 Now would be a great time to learn about **reactivity**.
