@@ -4,7 +4,7 @@ class Rectangle < Component
   include EventHandler
   include Bounds
 
-  attr_accessor :width, :height, :color
+  reactive_accessor :width, :height, :color, :rounding
 
   # Creates a Rectangle.
   #
@@ -19,24 +19,24 @@ class Rectangle < Component
   def initialize(
     options
   )
-    @width = 0
-    @height = 0
-    @rounding = nil
-    @color = Color.new(255, 255, 255)
+    set(
+      { width: 0, height: 0, rounding: nil, color: Color.new(255, 255, 255) },
+      force: true
+    )
 
     super(options)
   end
 
   def render(renderer)
     # Dynamic position
-    x, y = position == :dynamic ? [dynamic_x, dynamic_y] : [get(@x), get(@y)]
+    pos_x, pos_y = position == :dynamic ? [dynamic_x, dynamic_y] : [x, y]
 
-    Architect.render_draw_color(renderer, *get(@color).to_a)
+    Architect.render_draw_color(renderer, *color.to_a)
 
-    if @rounding.nil?
-      Architect.render_rectangle(renderer, x, y, dynamic_width, dynamic_height)
+    if rounding.nil?
+      Architect.render_rectangle(renderer, pos_x, pos_y, dynamic_width, dynamic_height)
     else
-      Architect.render_rounded_rectangle(renderer, x, y, dynamic_width, dynamic_height, @rounding)
+      Architect.render_rounded_rectangle(renderer, pos_x, pos_y, dynamic_width, dynamic_height, rounding)
     end
 
     # Draw children
