@@ -13,16 +13,4 @@ class MouseEvent < Event
     @x = options[:x] || 0
     @y = options[:y] || 0
   end
-
-  def left?
-    button == 1
-  end
-
-  def middle?
-    button == 2
-  end
-
-  def right?
-    button == 3
-  end
 end
