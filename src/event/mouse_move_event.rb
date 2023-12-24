@@ -1,8 +1,6 @@
 class MouseMoveEvent < Event
   attr_reader :x, :y, :x_relative, :y_relative
 
-  set_aliases :mouse_move
-
   def initialize(options)
     super(options)
 
