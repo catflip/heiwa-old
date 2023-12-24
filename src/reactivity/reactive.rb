@@ -1,4 +1,4 @@
-module UnwrapReactive
+module UnwrapReactive  
   # @param [Reactive] reactive
   def unwrap_reactive(reactive)
     reactive.value

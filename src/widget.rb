@@ -28,10 +28,13 @@ class Widget
     # @type [Event]
     event = Event.from_hash(event)
 
-    @events
-      .filter { |ev| ev[:type] == event.type }
-      .each do |ev|
-      ev[:block].call event
+    # Skip handling the event if we don't have one to call
+    unless event.nil?
+      @events
+        .filter { |ev| ev[:type] == event.type }
+        .each do |ev|
+        ev[:block].call event
+      end
     end
 
     update

@@ -9,7 +9,7 @@ module EventHandler
 
     id = SecureRandom.hex
 
-    @widget.register_event id, event, block
+    widget.register_event id, event, block
 
     id
   end
@@ -17,6 +17,6 @@ module EventHandler
   # Removes an event listener.
   # @param [String] id The event's id
   def remove_event(id)
-    @widget.events.delete_if { |ev| ev[:id] == id }
+    widget.events.delete_if { |ev| ev[:id] == id }
   end
 end

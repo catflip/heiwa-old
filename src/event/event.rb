@@ -10,15 +10,18 @@ class Event
   # Returns the specific event type from a custom schema.
   # @param [Hash] sdl_event The event hash
   def self.from_hash(sdl_event)
+    # Automatically get all modules that end with 'Event'
+    # and extend `self` (`Event`).
+    valid_events = Module.constants
+                         .filter { |c| c.end_with? 'Event' }
+                         .map { |m| Module.const_get(m) }
+                         .filter { |m| m < self }
+
+    type = format_type(sdl_event[:type])
+
     # @type [Event]
-    event = case Event.format_type(sdl_event[:type])
-            when :window_event
-              WindowEvent
-            when :mouse_move
-              MouseMoveEvent
-            when :mouse_down, :mouse_up, :mouse_wheel
-              MouseEvent
-            end
+    event = valid_events.find { |ev| ev&.aliases&.include? type }
+    return nil if event.nil?
 
     event.new sdl_event
   end
@@ -40,5 +43,15 @@ class Event
     else
       :unknown
     end
+  end
+
+  def self.set_aliases(*aliases)
+    instance_variable_set :@aliases, aliases
+  end
+
+  def self.aliases
+    return [] unless instance_variable_defined? :@aliases
+
+    instance_variable_get :@aliases
   end
 end
