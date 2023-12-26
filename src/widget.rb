@@ -1,5 +1,6 @@
 require_relative 'reactivity/reactive'
 require_relative 'reactivity/computed'
+require_relative 'reactivity/watch'
 
 # Total list of registered widgets.
 # @type [Array<Widget>]

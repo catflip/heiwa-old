@@ -1,4 +1,6 @@
-module UnwrapReactive  
+require_relative 'watchable'
+
+module UnwrapReactive
   # @param [Reactive] reactive
   def unwrap_reactive(reactive)
     reactive.value
@@ -6,10 +8,17 @@ module UnwrapReactive
 end
 
 class Reactive
-  attr_accessor :value
+  include Watchable
+
+  attr_reader :value
 
   def initialize(value)
     @value = value
+  end
+
+  def value=(new_value)
+    @value = new_value
+    update_watchers(@value)
   end
 end
 

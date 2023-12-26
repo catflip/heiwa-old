@@ -1,3 +1,5 @@
+require_relative 'watchable'
+
 module UnwrapComputed
   # @param [Computed] computed
   def unwrap_computed(computed)
@@ -6,6 +8,8 @@ module UnwrapComputed
 end
 
 class Computed
+  include Watchable
+
   attr_reader :computer
 
   def initialize(&computer)
@@ -13,7 +17,9 @@ class Computed
   end
 
   def read
-    @computer.call
+    value = @computer.call
+    update_watchers(value)
+    value
   end
 end
 
