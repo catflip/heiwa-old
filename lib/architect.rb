@@ -24,6 +24,23 @@ module Architect
   #   @param [Object] window The window to create the renderer for.
   #   @return [Object]
 
+  # @!method self.open_font(path, size)
+  #   Opens a TTF font, given a path and a size.
+  #   @param [String] path The path to the font
+  #   @param [Integer] size The size of the font
+
+  # @!method self.close_font(font)
+  #   Closes a TTF font.
+  #   @param [Object] font
+
+  # @!method self.render_text(renderer, x, y, content, font_obj)
+  #   Renders text on the screen.
+  #   @param [Object] renderer
+  #   @param [Integer] x
+  #   @param [Integer] y
+  #   @param [String] content
+  #   @param [Object] font_obj The pointer to a font
+
   # @!method self.render_clear(renderer)
   #   Clears the renderer buffer.
   #   @param [Object] renderer
