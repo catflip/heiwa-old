@@ -45,6 +45,76 @@ VALUE create_renderer(VALUE _self, VALUE window)
 	return object;
 }
 
+int *font_size(TTF_Font *font, const char *text)
+{
+	int w, h;
+	TTF_SizeText(font, text, &w, &h);
+
+	int *size = malloc(sizeof(int) * 2);
+	size[0] = w;
+	size[1] = h;
+
+	return size;
+}
+
+VALUE open_font(VALUE _self, VALUE font, VALUE size)
+{
+	Check_Type(font, T_STRING);
+	Check_Type(size, T_FIXNUM);
+
+	const char *font_path = StringValueCStr(font);
+	int font_size = NUM2INT(size);
+
+	TTF_Font *ttf_font = TTF_OpenFont(font_path, font_size);
+
+	VALUE object = Data_Wrap_Struct(rb_cObject, 0, free_ptr, ttf_font);
+
+	return object;
+}
+
+VALUE close_font(VALUE _self, VALUE font_obj)
+{
+	TTF_Font *font;
+	Data_Get_Struct(font_obj, TTF_Font, font);
+
+	TTF_CloseFont(font);
+
+	return Qnil;
+};
+
+VALUE render_text(VALUE _self, VALUE renderer, VALUE x, VALUE y, VALUE content, VALUE font_obj)
+{
+	Check_Type(x, T_FIXNUM);
+	Check_Type(y, T_FIXNUM);
+	Check_Type(content, T_STRING);
+
+	SDL_Renderer *rend = get_renderer(renderer);
+
+	int pos_x = NUM2INT(x);
+	int pos_y = NUM2INT(y);
+
+	SDL_Color color;
+	SDL_GetRenderDrawColor(rend, &color.r, &color.g, &color.b, &color.a);
+
+	TTF_Font *font;
+	Data_Get_Struct(font_obj, TTF_Font, font);
+
+	const char *text = StringValueCStr(content);
+
+	SDL_Surface *surface = TTF_RenderText_Blended(font, text, color);
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(rend, surface);
+
+	int *size = font_size(font, text);
+	SDL_Rect rect = {pos_x, pos_y, size[0], size[1]};
+
+	SDL_RenderCopy(rend, texture, NULL, &rect);
+
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+
+	return Qnil;
+}
+
 VALUE render_delay(VALUE _self, VALUE d)
 {
 	int delay = NUM2INT(d);

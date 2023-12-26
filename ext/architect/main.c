@@ -20,6 +20,8 @@ VALUE init_sdl()
 		rb_raise(rb_eRuntimeError, "Failed to initialize SDL");
 	}
 
+	TTF_Init();
+
 	return Qnil;
 }
 
@@ -34,6 +36,10 @@ void Init_architect()
 	rb_define_module_function(architect, "create_window", create_window, 1);
 	rb_define_module_function(architect, "create_renderer", create_renderer, 1);
 
+	rb_define_module_function(architect, "open_font", open_font, 2);
+	rb_define_module_function(architect, "close_font", close_font, 1);
+
+	rb_define_module_function(architect, "render_text", render_text, 5);
 	rb_define_module_function(architect, "render_delay", render_delay, 1);
 	rb_define_module_function(architect, "render_clear", render_clear, 1);
 	rb_define_module_function(architect, "render_present", render_present, 1);
