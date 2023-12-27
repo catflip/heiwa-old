@@ -13,6 +13,6 @@ module Bounds
       raise 'Cannot calculate bounds without `@width` and `@height`!'
     end
 
-    x <= position_x && position_x <= x + width && y <= position_y && position_y <= y + @height
+    x <= position_x && position_x <= x + width && y <= position_y && position_y <= y + height
   end
 end
