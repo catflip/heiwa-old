@@ -47,6 +47,12 @@ class Component
     end
   end
 
+  # Get the raw `Reactive` variable from the component.
+  # @param [Symbol] name The name of the variable.
+  def get(name)
+    instance_variable_get(:"@#{name}")
+  end
+
   def render(_renderer)
     raise 'Render method must be defined!'
   end
