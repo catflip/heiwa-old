@@ -42,7 +42,18 @@ class Component
     end
 
     params.each do |k, v|
-      v = reactive(v) unless v.is_a?(Reactive) || v.is_a?(Computed)
+      unless v.is_a?(Reactive) || v.is_a?(Computed)
+        var = instance_variable_get(:"@#{k}")
+        if var.is_a?(Reactive) || var.is_a?(Computed)
+          # Assign it to the already existing Reactive variable
+          var.value = v
+          next
+        else
+          # Make `v` a Reactive variable
+          v = reactive(v)
+        end
+      end
+
       instance_variable_set(:"@#{k}", v)
     end
   end
