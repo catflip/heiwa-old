@@ -1,6 +1,4 @@
-class CubicAnimation < Animation
-  private
-
+class CubicEasing < Easing
   def animate_in(progress)
     progress**3
   end
