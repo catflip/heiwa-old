@@ -53,7 +53,7 @@ $WIDGETS.each do |name, widget|
       end
       end_time = Architect.get_ticks
 
-      frame_time = start_time - end_time
+      frame_time = end_time - start_time
       sleep((max_frametime - frame_time) / 1000) if frame_time < max_frametime
     end
 
