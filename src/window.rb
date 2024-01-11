@@ -15,8 +15,8 @@ class Window
     options[:height] ||= 512
     options[:background_color] ||= Color.new(0, 0, 0, 255)
 
-    options[:width] = Screen.width if options[:width] == :max
-    options[:height] = Screen.height if options[:height] == :max
+    options[:width] = Screen.width(0) if options[:width] == :max
+    options[:height] = Screen.height(0) if options[:height] == :max
 
     @options = options
 

@@ -8,7 +8,7 @@ module DynamicSize
     when Numeric
       width
     when Symbol
-      calculate_symbol width, Screen.width(0), @parent&.dynamic_width
+      calculate_symbol width, Screen.width(0), parent&.dynamic_width
     when String
       calculate_string width, (parent&.dynamic_width || Screen.width(0))
     when Proc
@@ -25,7 +25,7 @@ module DynamicSize
     when Numeric
       height
     when Symbol
-      calculate_symbol height, Screen.height(0), @parent&.dynamic_height
+      calculate_symbol height, Screen.height(0), parent&.dynamic_height
     when String
       calculate_string height, (parent&.dynamic_height || Screen.height(0))
     when Proc
@@ -40,7 +40,7 @@ module DynamicSize
     # TODO: Handle either `:min` or `:max`
     raise "Invalid size symbol: #{sym}" unless sym == :max
 
-    if @parent.nil?
+    if parent.nil?
       # Top level element
       max_size
     else
