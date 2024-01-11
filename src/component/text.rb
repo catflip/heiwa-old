@@ -21,14 +21,15 @@ class Text < Component
     )
 
     super(options)
+
+    @font_family = font.open(size)
   end
 
   def render(renderer)
     # Dynamic position
     pos_x, pos_y = position == :dynamic ? [dynamic_x, dynamic_y] : [x, y]
-    font_family = font.open(size)
 
     Architect.render_draw_color(renderer, *color.to_a)
-    Architect.render_text(renderer, pos_x, pos_y, content, font_family)
+    Architect.render_text(renderer, pos_x, pos_y, content, @font_family)
   end
 end
