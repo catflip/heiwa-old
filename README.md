@@ -171,7 +171,7 @@ Heiwa components always know how to handle reactive variables, so you don't need
 > [!note]
 > Notice how we don't use `.value` when passing it to the `make` function. This happens because `$x.value` will return the primitive value, while `$x` will return a `Reactive` class.
 
-Heiwa has another trick: *computed variables*. As the name suggests, computed variables *compute* values, instead of directly assigning them.
+Heiwa also implements *computed variables*. As the name suggests, computed variables *compute* values, instead of directly assigning them.
 
 For example, we can construct an RGB value automatically from an HSL value:
 
@@ -179,9 +179,24 @@ For example, we can construct an RGB value automatically from an HSL value:
 hue = 120
 color = computed { Color.from_hsl(hue, 100, 100) }
 
-root do |children|
+root do |_, children|
   children << make :rect, width: :max, height: :max, color:
 end
 ```
 
 This way, if we ever change `hue`, `color` will change along with it.
+
+As a cherry on top, Heiwa also implements the *watch* function. This is nothing fancy, but you can use it to listen for updates on reactive elements:
+
+```rb
+some_number = reactive(0)
+watch some_number do |new, old|
+  puts "`some_number` changed: #{new} -> #{old}"
+end
+
+root do |r, _|
+  r.add_event :mouse_up do
+    some_number.value += 1
+  end
+end
+```
