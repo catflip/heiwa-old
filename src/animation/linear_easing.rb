@@ -1,6 +1,4 @@
-class LinearAnimation < Animation
-  private
-
+class LinearEasing < Easing
   def animate(progress)
     progress
   end
