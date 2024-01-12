@@ -70,7 +70,7 @@ class Component
 
   # Adds the component to the root tree.
   def add_to_root
-    $WIDGETS[$WIDGET_BUFFER].add_component(self)
+    widget.add_component(self)
   end
 
   # Adds a child to the `children` array

@@ -8,6 +8,7 @@ $WIDGETS = {}
 
 class Widget
   attr_reader :options, :components, :events
+  attr_accessor :has_root
 
   def initialize(options, components)
     @options = options
@@ -15,6 +16,8 @@ class Widget
 
     # @type [Array<Proc>]
     @events = []
+
+    @has_root = false
   end
 
   def add_component(component)
@@ -48,14 +51,11 @@ class Widget
 end
 
 # Loads a widget by a name and a path.
-# $WIDGET_BUFFER will be the name until the loading finishes.
 def load_widget(name, path)
-  $WIDGET_BUFFER = name
+  $WIDGETS[path] = [name, nil]
 
   # Load the widget
   require path
-
-  $WIDGET_BUFFER = nil
 end
 
 # You should pass information about your widget here.
@@ -69,14 +69,22 @@ end
 #   - `:window` will create a floating window.
 #   - `:dock` will create a docked window.
 def make_widget(options)
-  $WIDGETS[$WIDGET_BUFFER] = Widget.new(options, [])
+  caller = caller_locations(1, 1).first.absolute_path
+  $WIDGETS[caller][1] = Widget.new(options, [])
 end
 
 # Create a component.
 # @param [Symbol] component The component you'd like to create.
 #   Valid components are: `:rect`
 # @param [Hash] options The options related to the component.
-def make(component, options)
+def make(component, options, widget = nil)
+  caller = caller_locations(1, 1).first.absolute_path
+
+  if widget.nil?
+    widget_name, widget = $WIDGETS[caller]
+    raise "Your widget (#{widget_name}) was not initialized yet!" if widget.nil?
+  end
+
   component_map = {
     root: Root,
     rect: Rectangle,
@@ -89,7 +97,7 @@ def make(component, options)
   component = component_map[component].new(**options)
 
   # Set the widget
-  component.widget = $WIDGETS[$WIDGET_BUFFER]
+  component.widget = widget
 
   # Children proxy
   # This is required since we must use the `add_child` method on the component
@@ -111,11 +119,16 @@ end
 #
 # `add_to_root` musn't be called. It is implicitly added to the root.
 def root(&)
-  raise 'There must only be one Root component.' if $__HAS_ROOT == true
+  caller = caller_locations(1, 1).first.absolute_path
+  widget_name, widget = $WIDGETS[caller]
 
-  $__HAS_ROOT = true
+  raise 'There must only be one Root component.' if widget.has_root == true
+
+  widget.has_root = true
+
+  raise "Your widget (#{widget_name}) was not initialized yet!" if widget.nil?
 
   # @type [Root]
-  component = make(:root, {}, &)
+  component = make(:root, {}, widget, &)
   component.add_to_root
 end
