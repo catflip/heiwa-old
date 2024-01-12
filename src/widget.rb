@@ -80,7 +80,8 @@ def make(component, options)
   component_map = {
     root: Root,
     rect: Rectangle,
-    text: Text
+    text: Text,
+    box: Box
   }
 
   # Create the component
