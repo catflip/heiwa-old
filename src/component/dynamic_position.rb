@@ -13,7 +13,14 @@ module DynamicPosition
       raise 'Cannot use `dynamic_x` without `@x`. Does your component support `@x`?'
     end
 
-    parent.nil? ? x : parent.x + x
+    case parent
+    when NilClass
+      x
+    when Box
+      parent.child_x(self)
+    else
+      parent.x + x
+    end
   end
 
   def dynamic_y
@@ -21,6 +28,13 @@ module DynamicPosition
       raise 'Cannot use `dynamic_y` without `@y`. Does your component support `@y`?'
     end
 
-    parent.nil? ? y : parent.y + y
+    case parent
+    when NilClass
+      y
+    when Box
+      parent.child_y(self)
+    else
+      parent.y + y
+    end
   end
 end
