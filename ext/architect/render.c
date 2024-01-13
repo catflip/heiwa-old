@@ -39,6 +39,7 @@ VALUE create_renderer(VALUE _self, VALUE window)
 	Data_Get_Struct(window, SDL_Window, win);
 
 	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawBlendMode(rend, SDL_BLENDMODE_BLEND);
 
 	VALUE object = Data_Wrap_Struct(rb_cObject, 0, free_ptr, rend);
 

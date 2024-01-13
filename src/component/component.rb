@@ -1,9 +1,15 @@
+require 'securerandom'
+
 class Component
   extend ReactiveAccessor
   include UnwrapReactive
   include UnwrapComputed
 
-  reactive_accessor :x, :y, :children, :parent, :widget, :position
+  attr_reader :id
+  attr_writer :parent
+  attr_accessor :widget
+
+  reactive_accessor :x, :y, :position
 
   # Creates an empty component.
   # This will do nothing in itself and will not render.
@@ -16,15 +22,20 @@ class Component
   # @option options [Symbol] :position
   #   Valid options are `:absolute` or `:dynamic`.
   def initialize(options)
+    @id = SecureRandom.hex.to_sym
+
     set(
       {
         x: 0, y: 0,
-        children: [],
-        position: :dynamic,
-        parent: nil, widget: nil
+        position: :dynamic, widget: nil
       },
       force: true
     )
+
+    @parent = nil
+    @widget = nil
+    @children = []
+
     set(options)
   end
 
@@ -64,19 +75,39 @@ class Component
     instance_variable_get(:"@#{name}")
   end
 
-  def render(_renderer)
-    raise 'Render method must be defined!'
-  end
+  def render(_renderer); end
 
   # Adds the component to the root tree.
   def add_to_root
-    $WIDGETS[$WIDGET_BUFFER].add_component(self)
+    widget.add_component(@id, self)
   end
 
   # Adds a child to the `children` array
   def add_child(component)
-    component.parent = self
-    component.widget = @widget
-    children << component
+    widget.add_component(component.id, component)
+    component.parent = @id
+    component.widget = widget
+    @children << component.id
+  end
+
+  # Removes a child from the tree
+  def remove_child(component)
+    component.parent = nil
+    component.remove
+    @children.delete(component.id)
+  end
+
+  # Removes itself from the tree
+  def remove
+    parent.remove_child(self) unless @parent.nil?
+    widget.remove_component(@id)
+  end
+
+  def parent
+    widget.components[@parent]
+  end
+
+  def children
+    @children.map { |c| widget.components[c] }
   end
 end

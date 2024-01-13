@@ -30,7 +30,7 @@ end
 threads = {}
 
 # @param [Widget] widget
-$WIDGETS.each do |name, widget|
+$WIDGETS.each_value do |name, widget|
   threads[name] = Thread.new do
     win_opts = widget.options.filter { |k, _| %i[title x y width height type background_color].include? k }
 
@@ -47,7 +47,7 @@ $WIDGETS.each do |name, widget|
       window.render do
         # Render the widget components
         # @param [Component] component
-        widget.components.each do |component|
+        widget.components_array.each do |component|
           component.render(renderer)
         end
       end

@@ -54,8 +54,6 @@ class Window
     yield
 
     Architect.render_present @renderer
-
-    # Architect.render_delay(1000 / 60)
   end
 
   def exit
