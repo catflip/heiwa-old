@@ -7,12 +7,18 @@ require_relative 'reactivity/watch'
 $WIDGETS = {}
 
 class Widget
-  attr_reader :options, :components, :events
+  attr_reader :options, :components, :components_array, :events
   attr_accessor :has_root
 
   def initialize(options, components)
     @options = options
+
+    # @type [Hash]
     @components = components
+
+    # @type [Array<Component>]
+    @components_array = []
+    cache_components
 
     # @type [Array<Proc>]
     @events = []
@@ -20,8 +26,21 @@ class Widget
     @has_root = false
   end
 
-  def add_component(component)
-    @components << component
+  # Adds a component to the widget
+  def add_component(id, component)
+    @components[id] = component
+    @components_array << component
+  end
+
+  # Removes a component from the widget
+  def remove_component(id)
+    @components[id]
+    @components_array.delete_if { |c| c.id == id }
+  end
+
+  # Turns the current component hash into an array
+  def cache_components
+    @components_array = @components.values
   end
 
   # Runs before every render tick
@@ -70,7 +89,7 @@ end
 #   - `:dock` will create a docked window.
 def make_widget(options)
   caller = caller_locations(1, 1).first.absolute_path
-  $WIDGETS[caller][1] = Widget.new(options, [])
+  $WIDGETS[caller][1] = Widget.new(options, {})
 end
 
 # Create a component.

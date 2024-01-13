@@ -47,7 +47,7 @@ $WIDGETS.each_value do |name, widget|
       window.render do
         # Render the widget components
         # @param [Component] component
-        widget.components.each do |component|
+        widget.components_array.each do |component|
           component.render(renderer)
         end
       end

@@ -38,9 +38,6 @@ class Rectangle < Component
     else
       Architect.render_rounded_rectangle(renderer, pos_x, pos_y, dynamic_width, dynamic_height, rounding)
     end
-
-    # Draw children
-    children.each { |c| c.render(renderer) }
   end
 
   def add_event(event, only_hover: true, &block)

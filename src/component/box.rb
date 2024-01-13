@@ -36,11 +36,6 @@ class Box < Component
     end
   end
 
-  def render(renderer)
-    # Draw children
-    children.each { |c| c.render(renderer) }
-  end
-
   def child_x(comp)
     index = child_index(comp)
     return dynamic_x + comp.x if direction == :column || index.nil?
