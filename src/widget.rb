@@ -27,9 +27,10 @@ class Widget
   end
 
   # Adds a component to the widget
-  def add_component(id, component)
+  def add_component(id, component, sort: true)
     @components[id] = component
     @components_array << component
+    @components_array.sort_by!(&:z) if sort
   end
 
   # Removes a component from the widget
