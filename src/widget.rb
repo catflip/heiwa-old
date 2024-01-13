@@ -1,3 +1,5 @@
+require 'pathname'
+
 require_relative 'reactivity/reactive'
 require_relative 'reactivity/computed'
 require_relative 'reactivity/watch'
@@ -72,7 +74,8 @@ end
 
 # Loads a widget by a name and a path.
 def load_widget(name, path)
-  $WIDGETS[path] = [name, nil]
+  widget_path = widget_path(path)
+  $WIDGETS[widget_path] = [name, nil]
 
   # Load the widget
   require path
@@ -89,8 +92,9 @@ end
 #   - `:window` will create a floating window.
 #   - `:dock` will create a docked window.
 def make_widget(options)
-  caller = caller_locations(1, 1).first.absolute_path
-  $WIDGETS[caller][1] = Widget.new(options, {})
+  widget_path = widget_path(caller_locations(1, 1).first.absolute_path)
+
+  $WIDGETS[widget_path][1] = Widget.new(options, {})
 end
 
 # Create a component.
@@ -98,10 +102,10 @@ end
 #   Valid components are: `:rect`
 # @param [Hash] options The options related to the component.
 def make(component, options, widget = nil)
-  caller = caller_locations(1, 1).first.absolute_path
+  widget_path = widget_path(caller_locations(1, 1).first.absolute_path)
 
   if widget.nil?
-    widget_name, widget = $WIDGETS[caller]
+    widget_name, widget = $WIDGETS[widget_path]
     raise "Your widget (#{widget_name}) was not initialized yet!" if widget.nil?
   end
 
@@ -139,8 +143,8 @@ end
 #
 # `add_to_root` musn't be called. It is implicitly added to the root.
 def root(&)
-  caller = caller_locations(1, 1).first.absolute_path
-  widget_name, widget = $WIDGETS[caller]
+  widget_path = widget_path(caller_locations(1, 1).first.absolute_path)
+  widget_name, widget = $WIDGETS[widget_path]
 
   raise 'There must only be one Root component.' if widget.has_root == true
 
@@ -151,4 +155,12 @@ def root(&)
   # @type [Root]
   component = make(:root, {}, widget, &)
   component.add_to_root
+end
+
+def widget_path(caller_path)
+  config_dir = Pathname.new(File.expand_path('~/.config/heiwa/'))
+  caller_path = Pathname.new(caller_path)
+  caller_path.ascend do |path|
+    break path if config_dir == path.parent
+  end
 end
