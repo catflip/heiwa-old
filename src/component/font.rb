@@ -5,6 +5,14 @@ class Font
   #
   # @param [String] path The path to the font
   def initialize(path)
+    unless File.exist?(path)
+      begin
+        path = `fc-match "#{path}" -f "%{file}"`
+      rescue Errno::ENOENT
+        raise "Failed to execute `fc-match`. Maybe it's not installed on your system?"
+      end
+    end
+
     @path = path
     $FONT_CACHE[@path] = {}
   end
