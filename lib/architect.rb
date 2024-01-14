@@ -24,6 +24,12 @@ module Architect
   #   @param [Object] window The window to create the renderer for.
   #   @return [Object]
 
+  # @!method self.text_width(font, text)
+  #   Gets the width of a text via a font.
+  #   @param [Object] font
+  #   @param [String] text The text you want to test.
+  #   @return [Integer] The text width in pixels.
+
   # @!method self.open_font(path, size)
   #   Opens a TTF font, given a path and a size.
   #   @param [String] path The path to the font
