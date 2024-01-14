@@ -30,6 +30,12 @@ module Architect
   #   @param [String] text The text you want to test.
   #   @return [Integer] The text width in pixels.
 
+  # @!method self.text_height(font, text)
+  #   Gets the height of a text via a font.
+  #   @param [Object] font
+  #   @param [String] text The text you want to test.
+  #   @return [Integer] The text height in pixels.
+
   # @!method self.open_font(path, size)
   #   Opens a TTF font, given a path and a size.
   #   @param [String] path The path to the font
