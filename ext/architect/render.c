@@ -59,6 +59,19 @@ VALUE text_width(VALUE _self, VALUE font, VALUE text)
 	return INT2NUM(w);
 }
 
+VALUE text_height(VALUE _self, VALUE font, VALUE text)
+{
+	Check_Type(text, T_STRING);
+
+	TTF_Font *ttf_font;
+	Data_Get_Struct(font, TTF_Font, ttf_font);
+
+	int h;
+	TTF_SizeText(ttf_font, StringValueCStr(text), NULL, &h);
+
+	return INT2NUM(h);
+}
+
 int *font_size(TTF_Font *font, const char *text)
 {
 	int w, h;

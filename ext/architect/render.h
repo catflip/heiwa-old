@@ -30,6 +30,9 @@ VALUE close_font(VALUE _self, VALUE font_obj);
 // Returns the width of text
 VALUE text_width(VALUE _self, VALUE font, VALUE text);
 
+// Returns the height of text
+VALUE text_height(VALUE _self, VALUE font, VALUE text);
+
 // Returns the size of a font
 int* font_size(TTF_Font *font, const char* text);
 

@@ -37,6 +37,7 @@ void Init_architect()
 	rb_define_module_function(architect, "create_renderer", create_renderer, 1);
 
 	rb_define_module_function(architect, "text_width", text_width, 2);
+	rb_define_module_function(architect, "text_height", text_height, 2);
 	rb_define_module_function(architect, "open_font", open_font, 2);
 	rb_define_module_function(architect, "close_font", close_font, 1);
 
