@@ -3,7 +3,7 @@ class Text < Component
   include DynamicPosition
   include EventHandler
 
-  reactive_accessor :content, :font, :color, :size
+  reactive_accessor :content, :font, :color, :background_color, :size
   reactive_reader :width, :height
 
   # Creates Text.
@@ -21,6 +21,7 @@ class Text < Component
         content: '', font: nil, size: 16,
         width: 0, height: 0,
         color: Color.new(255, 255, 255),
+        background_color: nil
       },
       force: true
     )
@@ -38,6 +39,11 @@ class Text < Component
   def render(renderer)
     # Dynamic position
     pos_x, pos_y = position == :dynamic ? [dynamic_x, dynamic_y] : [x, y]
+
+    unless background_color.nil?
+      Architect.render_draw_color(renderer, *background_color.to_a)
+      Architect.render_rectangle(renderer, pos_x, pos_y, width, height)
+    end
 
     Architect.render_draw_color(renderer, *color.to_a)
     Architect.render_text(renderer, pos_x, pos_y, content, @font_family)
