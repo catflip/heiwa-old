@@ -4,7 +4,7 @@ class Text < Component
   include EventHandler
 
   reactive_accessor :content, :font, :color, :size
-  reactive_reader :width
+  reactive_reader :width, :height
 
   # Creates Text.
   #
@@ -18,8 +18,9 @@ class Text < Component
   def initialize(options)
     set(
       {
-        content: '', font: nil, size: 16, width: 0,
-        color: Color.new(255, 255, 255)
+        content: '', font: nil, size: 16,
+        width: 0, height: 0,
+        color: Color.new(255, 255, 255),
       },
       force: true
     )
@@ -28,9 +29,10 @@ class Text < Component
 
     @font_family = font.open(size)
 
-    # Update text width
-    watch(@content) { update_width }
-    update_width
+    # Update text size
+    watch(@content) { update_size }
+    watch(@size) { update_size }
+    update_size
   end
 
   def render(renderer)
@@ -43,7 +45,8 @@ class Text < Component
 
   private
 
-  def update_width
+  def update_size
     @width.value = Architect.text_width(@font_family, content)
+    @height.value = Architect.text_height(@font_family, content)
   end
 end
