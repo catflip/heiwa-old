@@ -3,17 +3,17 @@ $FONT_CACHE = {}
 class Font
   # Creates a new TTF font
   #
-  # @param [String] path The path to the font
-  def initialize(path)
-    unless File.exist?(path)
+  # @param [String] font The name or path of the font
+  def initialize(font)
+    unless File.exist?(font)
       begin
-        path = `fc-match "#{path}" -f "%{file}"`
+        font = `fc-match "#{font}" -f "%{file}"`
       rescue Errno::ENOENT
         raise "Failed to execute `fc-match`. Maybe it's not installed on your system?"
       end
     end
 
-    @path = path
+    @path = font
     $FONT_CACHE[@path] = {}
   end
 
