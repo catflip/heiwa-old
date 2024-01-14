@@ -46,6 +46,19 @@ VALUE create_renderer(VALUE _self, VALUE window)
 	return object;
 }
 
+VALUE text_width(VALUE _self, VALUE font, VALUE text)
+{
+	Check_Type(text, T_STRING);
+
+	TTF_Font *ttf_font;
+	Data_Get_Struct(font, TTF_Font, ttf_font);
+
+	int w;
+	TTF_SizeText(ttf_font, StringValueCStr(text), &w, NULL);
+
+	return INT2NUM(w);
+}
+
 int *font_size(TTF_Font *font, const char *text)
 {
 	int w, h;
