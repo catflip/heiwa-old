@@ -7,6 +7,13 @@ module Architect
 
   # @!method self.gl_init()
   #   Initializes GLFW.
+
+  # @!method self.create_window(options)
+  #   Creates a window.
+  #   @param [Hash] options
+  #   @option options [Integer] :width The window width.
+  #   @option options [Integer] :height The window width.
+  #   @option options [String] :title The window title.
 end
 
 module Screen
