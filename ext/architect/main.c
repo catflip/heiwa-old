@@ -2,6 +2,8 @@
 #include <ruby.h>
 #include <GLFW/glfw3.h>
 
+#include "window.h"
+
 VALUE info()
 {
 	return rb_str_new_cstr("Pong!");
@@ -22,5 +24,10 @@ void Init_architect()
 	VALUE architect = rb_define_module("Architect");
 
 	rb_define_module_function(architect, "ping", info, 0);
+
+	// GLFW Methods
 	rb_define_module_function(architect, "gl_init", init_glfw, 0);
+
+	// Common Methods
+	rb_define_module_function(architect, "create_window", create_window, 1);
 }
