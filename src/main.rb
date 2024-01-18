@@ -12,7 +12,7 @@ loader.collapse("#{__dir__}/*")
 loader.setup
 # -------------
 
-Architect.init_sdl
+Architect.gl_init
 
 # Initialize Configuration
 CONFIG = Config.init_config
