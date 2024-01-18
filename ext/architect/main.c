@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 
 #include "window.h"
+#include "screen.h"
 
 VALUE info()
 {
@@ -27,7 +28,12 @@ void Init_architect()
 
 	// GLFW Methods
 	rb_define_module_function(architect, "gl_init", init_glfw, 0);
+	rb_define_module_function(architect, "gl_primary_monitor", rb_gl_primary_monitor, 0);
 
 	// Common Methods
 	rb_define_module_function(architect, "create_window", create_window, 1);
+
+	VALUE screen = rb_define_module("Screen");
+
+	rb_define_module_function(screen, "screen_size", rb_screen_size, 1);
 }
