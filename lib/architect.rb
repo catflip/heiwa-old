@@ -7,6 +7,11 @@ module Architect
 
   # @!method self.gl_init()
   #   Initializes GLFW.
+  #   @return [Object]
+
+  # @!method self.gl_primary_monitor()
+  #   Returns the primary monitor.
+  #   @return [Object]
 
   # @!method self.create_window(options)
   #   Creates a window.
