@@ -6,4 +6,4 @@
 #include "util.h"
 
 // Creates a GLFW window.
-VALUE create_window(VALUE self, VALUE options);
+VALUE rb_create_window(VALUE self, VALUE options);

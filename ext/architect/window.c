@@ -1,6 +1,6 @@
 #include "window.h"
 
-VALUE create_window(VALUE self, VALUE options)
+VALUE rb_create_window(VALUE self, VALUE options)
 {
 	int width = NUM2INT(rb_hash_aref(options, sym("width")));
 	int height = NUM2INT(rb_hash_aref(options, sym("height")));

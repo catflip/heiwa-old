@@ -31,7 +31,7 @@ void Init_architect()
 	rb_define_module_function(architect, "gl_primary_monitor", rb_gl_primary_monitor, 0);
 
 	// Common Methods
-	rb_define_module_function(architect, "create_window", create_window, 1);
+	rb_define_module_function(architect, "create_window", rb_create_window, 1);
 
 	VALUE screen = rb_define_module("Screen");
 
