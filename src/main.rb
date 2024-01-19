@@ -26,6 +26,9 @@ CONFIG.widgets.each do |widget|
   load_widget(widget, widget_path)
 end
 
+# App Lifecycle Start
+$__TIMER = Time.now
+
 # @type [Array<Thread>]
 threads = {}
 

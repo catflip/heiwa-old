@@ -19,6 +19,16 @@ module Architect
   #   @option options [Integer] :width The window width.
   #   @option options [Integer] :height The window width.
   #   @option options [String] :title The window title.
+
+  # Gets the elapsed time via $__TIMER or the `timer` parameter (if it exists).
+  # Returns nil if if $__TIMER is `nil`.
+  # @return [Integer, NilClass]
+  def self.get_ticks(timer = nil)
+    timer ||= $__TIMER
+    return nil if timer.nil?
+
+    (Time.now - timer).to_f
+  end
 end
 
 module Screen
