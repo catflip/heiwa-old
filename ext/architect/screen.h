@@ -1,14 +1,12 @@
 #pragma once
 
-#include <ruby.h>
-#include <GLFW/glfw3.h>
-
+#include "common.h"
 #include "util.h"
 
 typedef struct ScreenSize
 {
-    int width;
-    int height;
+	int width;
+	int height;
 } ScreenSize;
 
 // Returns a `ScreenSize` struct.

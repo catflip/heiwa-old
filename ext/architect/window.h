@@ -1,8 +1,6 @@
 #pragma once
 
-#include <ruby.h>
-#include <GLFW/glfw3.h>
-
+#include "common.h"
 #include "util.h"
 
 // Creates a GLFW window.
