@@ -17,11 +17,22 @@ module Architect
 end
 
 module Screen
-  # def self.width(display_index)
-  #   size(display_index)[:width]
-  # end
+  # @!method self.screen_size(monitor)
+  #   Returns the screen size of a monitor.
+  #   @param [Object] monitor
+  #   @return [Hash] A hash with the `:width` and `:height` keys.
 
-  # def self.height(display_index)
-  #   size(display_index)[:height]
-  # end
+  # Returns the width of a monitor.
+  # @param [Object] monitor
+  # @return [Integer]
+  def self.width(monitor)
+    screen_size(monitor)[:width]
+  end
+
+  # Returns the height of a monitor.
+  # @param [Object] monitor
+  # @return [Integer]
+  def self.height(monitor)
+    screen_size(monitor)[:height]
+  end
 end
