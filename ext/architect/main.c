@@ -31,7 +31,13 @@ void Init_architect()
 	// GL/GLFW Methods
 	rb_define_module_function(architect, "gl_init", init_glfw, 0);
 	rb_define_module_function(architect, "gl_primary_monitor", rb_gl_primary_monitor, 0);
+	rb_define_module_function(architect, "gl_viewport", rb_gl_viewport, 1);
 	rb_define_module_function(architect, "gl_make_context", rb_gl_make_context_current, 1);
+	rb_define_module_function(architect, "gl_swap_buffers", rb_gl_swap_buffers, 1);
+	rb_define_module_function(architect, "gl_poll_events", rb_gl_poll_events, 0);
+	rb_define_module_function(architect, "gl_clear_color", rb_gl_clear_color, 1);
+	rb_define_module_function(architect, "gl_clear", rb_gl_clear, 1);
+
 
 	// Common Methods
 	rb_define_module_function(architect, "create_window", rb_create_window, 1);
