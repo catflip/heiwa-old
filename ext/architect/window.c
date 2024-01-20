@@ -24,3 +24,12 @@ VALUE rb_create_window(VALUE self, VALUE options)
 
 	return Data_Wrap_Struct(rb_cObject, 0, xfree, window);
 }
+
+VALUE rb_gl_make_context_current(VALUE _self, VALUE window)
+{
+	GLFWwindow *win;
+	Data_Get_Struct(window, GLFWwindow, win);
+	glfwMakeContextCurrent(win);
+
+	return Qnil;
+}

@@ -31,6 +31,7 @@ void Init_architect()
 	// GL/GLFW Methods
 	rb_define_module_function(architect, "gl_init", init_glfw, 0);
 	rb_define_module_function(architect, "gl_primary_monitor", rb_gl_primary_monitor, 0);
+	rb_define_module_function(architect, "gl_make_context", rb_gl_make_context_current, 1);
 
 	// Common Methods
 	rb_define_module_function(architect, "create_window", rb_create_window, 1);

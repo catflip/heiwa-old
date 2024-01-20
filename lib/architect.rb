@@ -13,6 +13,10 @@ module Architect
   #   Returns the primary monitor.
   #   @return [Object]
 
+  # @!method self.gl_make_context(window)
+  #   Sets the current context to the one provided.
+  #   @param [Object] window
+
   # @!method self.create_window(options)
   #   Creates a window.
   #   @param [Hash] options
