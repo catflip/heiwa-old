@@ -13,6 +13,30 @@ module Architect
   #   Returns the primary monitor.
   #   @return [Object]
 
+  # @!method self.gl_viewport(options)
+  #   Sets the current GL viewport.
+  #   @param [Hash] options
+  #   @option options [Integer] :x
+  #   @option options [Integer] :y
+  #   @option options [Integer] :width
+  #   @option options [Integer] :height
+
+  # @!method self.gl_swap_buffers(window)
+  #   Swaps the GL buffer on a window.
+  #   @param [Object] window
+
+  # @!method self.gl_poll_events()
+  #   Polls GL events.
+
+  # @!method self.gl_clear_color(color)
+  #   Sets the GL clear color.
+  #   @param [Array<Float>] color RGBA colors in an array.
+
+  # @!method self.gl_clear(mask)
+  #   Clears the screen.
+  #   @param [Symbol] mask The mask to use.
+  #     Valid options are: `:color_buffer_bit`
+
   # @!method self.gl_make_context(window)
   #   Sets the current context to the one provided.
   #   @param [Object] window
