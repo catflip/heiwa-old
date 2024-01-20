@@ -1,5 +1,10 @@
 #include "window.h"
 
+void framebuffer_size_callback(GLFWwindow *window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 VALUE rb_create_window(VALUE self, VALUE options)
 {
 	int width = NUM2INT(rb_hash_aref(options, sym("width")));
@@ -15,6 +20,10 @@ VALUE rb_create_window(VALUE self, VALUE options)
 		glfwTerminate();
 		return Qnil;
 	}
+
+	// Some things like resize events should automatically be handled here.
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwMakeContextCurrent(window);
 
 	// Initialize GLAD (if it wasn't initialized already)
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
