@@ -16,5 +16,11 @@ VALUE rb_create_window(VALUE self, VALUE options)
 		return Qnil;
 	}
 
+	// Initialize GLAD (if it wasn't initialized already)
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		rb_raise(rb_eStandardError, "[Architect] Failed to initialize GLAD.");
+	}
+
 	return Data_Wrap_Struct(rb_cObject, 0, xfree, window);
 }

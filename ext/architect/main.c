@@ -1,3 +1,5 @@
+#include "glad.h"
+
 #include <stdio.h>
 #include <ruby.h>
 #include <GLFW/glfw3.h>
@@ -26,7 +28,7 @@ void Init_architect()
 
 	rb_define_module_function(architect, "ping", info, 0);
 
-	// GLFW Methods
+	// GL/GLFW Methods
 	rb_define_module_function(architect, "gl_init", init_glfw, 0);
 	rb_define_module_function(architect, "gl_primary_monitor", rb_gl_primary_monitor, 0);
 
