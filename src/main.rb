@@ -27,7 +27,7 @@ CONFIG.widgets.each do |widget|
 end
 
 # App Lifecycle Start
-$__TIMER = Time.now
+$__TIMER = Process.clock_gettime(Process::CLOCK_MONOTONIC)
 
 # @type [Array<Thread>]
 threads = {}

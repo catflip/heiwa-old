@@ -55,7 +55,8 @@ module Architect
     timer ||= $__TIMER
     return nil if timer.nil?
 
-    (Time.now - timer).to_f
+    time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    ((time - timer) * 1000).round
   end
 end
 
