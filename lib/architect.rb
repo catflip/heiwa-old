@@ -124,6 +124,11 @@ module Architect
   #   @option options [Integer] :height The window width.
   #   @option options [String] :title The window title.
 
+  # @!method self.window_size(window)
+  #   Returns the window size in a hash.
+  #   @param [Object] window
+  #   @return [Hash] The `:width` and `:height`.
+
   # Gets the elapsed time via $__TIMER or the `timer` parameter (if it exists).
   # Returns nil if if $__TIMER is `nil`.
   # @return [Integer, NilClass]
