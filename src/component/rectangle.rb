@@ -31,9 +31,10 @@ class Rectangle < Component
 
   def after_init
     pos_x, pos_y = position == :dynamic ? [dynamic_x, dynamic_y] : [x, y]
-    geometry = Architect.geometry_rectangle(
-      { x1: pos_x, y1: pos_y, x2: pos_x + width, y2: pos_y + height }
-    )
+    x1, y1 = Architect.normalized_coord(widget.window.window, pos_x, pos_y)
+    x2, y2 = Architect.normalized_coord(widget.window.window, pos_x + width, pos_y + height)
+
+    geometry = Architect.geometry_rectangle({ x1:, y1:, x2:, y2: })
     @vao = geometry[:vao]
     @vbo = geometry[:vbo]
 
