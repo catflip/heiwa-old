@@ -34,6 +34,21 @@ VALUE rb_create_window(VALUE self, VALUE options)
 	return Data_Wrap_Struct(rb_cObject, 0, xfree, window);
 }
 
+VALUE rb_window_size(VALUE _self, VALUE window)
+{
+	GLFWwindow *win;
+	Data_Get_Struct(window, GLFWwindow, win);
+
+	int width, height;
+	glfwGetWindowSize(win, &width, &height);
+
+	VALUE hash = rb_hash_new();
+	rb_hash_aset(hash, sym("width"), INT2NUM(width));
+	rb_hash_aset(hash, sym("height"), INT2NUM(height));
+
+	return hash;
+}
+
 VALUE rb_gl_make_context_current(VALUE _self, VALUE window)
 {
 	GLFWwindow *win;

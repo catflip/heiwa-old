@@ -58,6 +58,7 @@ void Init_architect()
 
 	// Common Methods
 	rb_define_module_function(architect, "create_window", rb_create_window, 1);
+	rb_define_module_function(architect, "window_size", rb_window_size, 1);
 
 	VALUE screen = rb_define_module("Screen");
 
