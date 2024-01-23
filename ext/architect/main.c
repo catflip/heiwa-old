@@ -7,6 +7,7 @@
 #include "window.h"
 #include "screen.h"
 #include "shader.h"
+#include "geometry.h"
 #include "render.h"
 
 VALUE info()
@@ -52,6 +53,8 @@ void Init_architect()
 	rb_define_module_function(architect, "link_shader_program", rb_link_shader_program, 1);
 	rb_define_module_function(architect, "use_shader_program", rb_use_shader_program, 1);
 
+	// Geometry
+	rb_define_module_function(architect, "geometry_rectangle", rb_geometry_rectangle, 1);
 
 	// Common Methods
 	rb_define_module_function(architect, "create_window", rb_create_window, 1);
