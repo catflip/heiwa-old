@@ -10,7 +10,7 @@ $WIDGETS = {}
 
 class Widget
   attr_reader :options, :components, :components_array, :events
-  attr_accessor :has_root
+  attr_accessor :has_root, :window
 
   def initialize(options, components)
     @options = options
