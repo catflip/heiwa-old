@@ -6,6 +6,7 @@
 
 #include "window.h"
 #include "screen.h"
+#include "shader.h"
 
 VALUE info()
 {
@@ -37,6 +38,15 @@ void Init_architect()
 	rb_define_module_function(architect, "gl_poll_events", rb_gl_poll_events, 0);
 	rb_define_module_function(architect, "gl_clear_color", rb_gl_clear_color, 1);
 	rb_define_module_function(architect, "gl_clear", rb_gl_clear, 1);
+
+	// Shader
+	rb_define_module_function(architect, "compile_vertex_shader", rb_compile_vertex_shader, 1);
+	rb_define_module_function(architect, "compile_fragment_shader", rb_compile_fragment_shader, 1);
+	rb_define_module_function(architect, "delete_shader", rb_delete_shader, 1);
+	rb_define_module_function(architect, "create_shader_program", rb_create_shader_program, 0);
+	rb_define_module_function(architect, "attach_shader_to", rb_attach_shader_to, 2);
+	rb_define_module_function(architect, "link_shader_program", rb_link_shader_program, 1);
+	rb_define_module_function(architect, "use_shader_program", rb_use_shader_program, 1);
 
 
 	// Common Methods
