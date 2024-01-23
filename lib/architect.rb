@@ -139,6 +139,23 @@ module Architect
     time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     ((time - timer) * 1000).round
   end
+
+  # Computes a normalized coordinate based on screen coordinates.
+  # @param [Object] window
+  # @param [Integer] pos_x
+  # @param [Integer] pos_y
+  # @return [Array<Integer>]
+  def self.normalized_coord(window, pos_x, pos_y)
+    window_size(window) => { width:, height: }
+
+    normalized_x = ((2.0 * pos_x) / width) - 1
+    normalized_y = 1 - ((2.0 * pos_y) / height)
+
+    normalized_x.clamp(-1, 1)
+    normalized_y.clamp(-1, 1)
+
+    [normalized_x, normalized_y]
+  end
 end
 
 module Screen
