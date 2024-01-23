@@ -8,11 +8,11 @@ module DynamicSize
     when Numeric
       width
     when Symbol
-      calculate_symbol width, Screen.width(0), parent&.dynamic_width
+      calculate_symbol width, Screen.width(Architect.gl_primary_monitor), parent&.dynamic_width
     when String
-      calculate_string width, (parent&.dynamic_width || Screen.width(0))
+      calculate_string width, (parent&.dynamic_width || Screen.width(Architect.gl_primary_monitor))
     when Proc
-      calculate_proc width, (parent&.dynamic_width || Screen.width(0))
+      calculate_proc width, (parent&.dynamic_width || Screen.width(Architect.gl_primary_monitor))
     end
   end
 
