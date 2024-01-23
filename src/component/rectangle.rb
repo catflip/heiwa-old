@@ -25,19 +25,27 @@ class Rectangle < Component
     )
 
     super(options)
+
+    @initialized = false
   end
 
-  def render(renderer)
-    # Dynamic position
+  def after_init
     pos_x, pos_y = position == :dynamic ? [dynamic_x, dynamic_y] : [x, y]
+    geometry = Architect.geometry_rectangle(
+      { x1: pos_x, y1: pos_y, x2: pos_x + width, y2: pos_y + height }
+    )
+    @vao = geometry[:vao]
+    @vbo = geometry[:vbo]
 
-    Architect.render_draw_color(renderer, *color.to_a)
+    @initialized = true
+  end
 
-    if rounding.nil?
-      Architect.render_rectangle(renderer, pos_x, pos_y, dynamic_width, dynamic_height)
-    else
-      Architect.render_rounded_rectangle(renderer, pos_x, pos_y, dynamic_width, dynamic_height, rounding)
-    end
+  def render
+    after_init unless @initialized
+
+    Architect.gl_bind_vertex_array(@vao)
+    Architect.gl_draw_elements(:triangles, 6, :unsigned_int, nil)
+    Architect.gl_bind_vertex_array(0)
   end
 
   def add_event(event, only_hover: true, &block)
