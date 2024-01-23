@@ -41,7 +41,6 @@ $WIDGETS.each_value do |name, widget|
     max_frametime = 1000.fdiv(max_fps)
 
     window = Window.new win_opts
-    renderer = window.renderer
 
     loop do
       widget.update
