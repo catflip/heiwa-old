@@ -1,10 +1,5 @@
 #include "window.h"
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height)
-{
-	glViewport(0, 0, width, height);
-}
-
 VALUE rb_create_window(VALUE self, VALUE options)
 {
 	int width = NUM2INT(rb_hash_aref(options, sym("width")));
@@ -21,8 +16,8 @@ VALUE rb_create_window(VALUE self, VALUE options)
 		return Qnil;
 	}
 
-	// Some things like resize events should automatically be handled here.
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	// Set user pointers
+	glfwSetWindowUserPointer(window, window);
 	glfwMakeContextCurrent(window);
 
 	// Initialize GLAD (if it wasn't initialized already)
@@ -31,7 +26,15 @@ VALUE rb_create_window(VALUE self, VALUE options)
 		rb_raise(rb_eStandardError, "[Architect] Failed to initialize GLAD.");
 	}
 
-	return Data_Wrap_Struct(rb_cObject, 0, xfree, window);
+	VALUE rb_window_id = ULL2NUM((unsigned long long)window);
+	VALUE rb_window = Data_Wrap_Struct(rb_cObject, 0, xfree, window);
+
+	// Return the ID and the window itself.
+	VALUE array = rb_ary_new();
+	rb_ary_push(array, rb_window_id);
+	rb_ary_push(array, rb_window);
+
+	return array;
 }
 
 VALUE rb_window_size(VALUE _self, VALUE window)

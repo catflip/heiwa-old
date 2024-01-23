@@ -34,7 +34,7 @@ class Window
     # Architect.set_hint('SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR', '0')
 
     # Spawn windows
-    @window = Architect.create_window(@options)
+    @window_id, @window = Architect.create_window(@options)
 
     # Run post actions
     post_actions.each(&:call)
