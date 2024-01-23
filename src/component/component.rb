@@ -75,7 +75,7 @@ class Component
     instance_variable_get(:"@#{name}")
   end
 
-  def render(_renderer); end
+  def render; end
 
   # Adds the component to the root tree.
   def add_to_root

@@ -49,10 +49,7 @@ $WIDGETS.each_value do |name, widget|
       start_time = Architect.get_ticks
       window.render do
         # Render the widget components
-        # @param [Component] component
-        widget.components_array.each do |component|
-          component.render(renderer)
-        end
+        widget.components_array.each(&:render)
       end
       end_time = Architect.get_ticks
 
