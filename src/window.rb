@@ -1,5 +1,8 @@
 class Window
-  attr_reader :window
+  attr_reader :window_id, :window
+
+  # @type [Integer] The window ID
+  @window_id = -1
 
   # @type [Object] The window pointer
   @window = nil

@@ -1,7 +1,7 @@
 class MouseEvent < Event
   attr_reader :window_id, :state, :button, :clicks, :x, :y
 
-  set_aliases :mouse_down, :mouse_up, :mouse_click, :click
+  set_aliases :mouse_button, :mouse_down, :mouse_up, :mouse_click, :click
 
   def initialize(options)
     super(options)
@@ -12,6 +12,13 @@ class MouseEvent < Event
     @clicks = options[:clicks] || 0
     @x = options[:x] || 0
     @y = options[:y] || 0
+
+    @type = case @state
+            when :down
+              :mouse_down
+            when :up
+              %i[mouse_up mouse_button mouse_click click]
+            end
   end
 
   def left?

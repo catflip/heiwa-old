@@ -4,12 +4,24 @@ class Event
   # @param [Hash] options The event hash
   # @option options [Integer] :type The event's type (SDL_Events)
   def initialize(options)
-    @type = Event.format_type(options[:type]) || :unknown
+    @type = options[:type] || :unknown
+  end
+
+  def self.process(obj)
+    return if obj[:type].nil? || obj[:window_id].nil?
+
+    # @type [Widget]
+    widget = $WIDGETS.values.flatten
+                     .filter { _1.is_a?(Widget) }
+                     .find { |w| w.window.window_id == obj[:window_id] }
+    return if widget.nil?
+
+    widget.handle_event(obj)
   end
 
   # Returns the specific event type from a custom schema.
-  # @param [Hash] sdl_event The event hash
-  def self.from_hash(sdl_event)
+  # @param [Hash] gl_event The event hash
+  def self.from_hash(gl_event)
     # Automatically get all modules that end with 'Event'
     # and extend `self` (`Event`).
     valid_events = Module.constants
@@ -17,32 +29,11 @@ class Event
                          .map { |m| Module.const_get(m) }
                          .filter { |m| m < self }
 
-    type = format_type(sdl_event[:type])
-
     # @type [Event]
-    event = valid_events.find { |ev| ev&.aliases&.include? type }
+    event = valid_events.find { |ev| ev&.aliases&.include?(gl_event[:type]) }
     return nil if event.nil?
 
-    event.new sdl_event
-  end
-
-  # Format an SDL_Events integer into a readable symbol.
-  # @return [Symbol]
-  def self.format_type(type)
-    case type
-    when 512
-      :window_event
-    when 1024
-      :mouse_move
-    when 1025
-      :mouse_down
-    when 1026
-      :mouse_up
-    when 1027
-      :mouse_wheel
-    else
-      :unknown
-    end
+    event.new gl_event
   end
 
   def self.set_aliases(*aliases)

@@ -46,24 +46,17 @@ class Widget
     @components_array = @components.values
   end
 
-  # Runs before every render tick
-  def update
-    event = Architect.poll_event
-    return if event.nil?
-
+  # Handle a GL event
+  def handle_event(event)
     # @type [Event]
     event = Event.from_hash(event)
+    return if event.nil?
 
-    # Skip handling the event if we don't have one to call
-    unless event.nil?
-      @events
-        .filter { |ev| ev[:type] == event.type }
-        .each do |ev|
-        ev[:block].call event
-      end
+    @events
+      .filter { |ev| event.type.is_a?(Array) ? event.type.include?(ev[:type]) : (event.type == ev[:type]) }
+      .each do |ev|
+      ev[:block].call event
     end
-
-    update
   end
 
   # Add a new event

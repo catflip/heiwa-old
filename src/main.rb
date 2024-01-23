@@ -44,8 +44,6 @@ $WIDGETS.each_value do |name, widget|
     widget.window = window
 
     loop do
-      widget.update
-
       start_time = Architect.get_ticks
       window.render do
         # Render the widget components

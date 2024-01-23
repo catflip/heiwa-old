@@ -26,6 +26,11 @@ VALUE rb_create_window(VALUE self, VALUE options)
 		rb_raise(rb_eStandardError, "[Architect] Failed to initialize GLAD.");
 	}
 
+	// Event callbacks
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_position_callback);
+	glfwSetMouseButtonCallback(window, mouse_button_callback);
+
 	VALUE rb_window_id = ULL2NUM((unsigned long long)window);
 	VALUE rb_window = Data_Wrap_Struct(rb_cObject, 0, xfree, window);
 
