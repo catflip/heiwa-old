@@ -65,6 +65,20 @@ module Architect
   #     Valid options are: `:unsigned_int`.
   #   @param [Object, NilClass] indices Optional indices object.
 
+  # @!method self.gl_enable(feature)
+  #   Enables a GL capability.
+  #   @param [Symbol, Integer] feature
+
+  # @!method self.gl_disable(feature)
+  #   Disables a GL capability.
+  #   @param [Symbol, Integer] feature
+
+  # @!method self.gl_blendfunc(sfactor, dfactor)
+  #   Specifies the pixel arithmetic. Usually used for transparency.
+  #   @see https://registry.khronos.org/OpenGL-Refpages/gl4/html/glBlendFunc.xhtml
+  #   @param [Symbol] sfactor
+  #   @param [Symbol] dfactor
+
   ##
   ## Shader methods
   ##
