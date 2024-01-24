@@ -9,6 +9,8 @@
 VALUE rb_compile_vertex_shader(VALUE _self, VALUE shader_source);
 VALUE rb_compile_fragment_shader(VALUE _self, VALUE shader_source);
 VALUE rb_delete_shader(VALUE _self, VALUE shader);
+VALUE rb_gl_uniform_location(VALUE _self, VALUE program, VALUE location);
+VALUE rb_gl_uniform_4f(VALUE _self, VALUE location, VALUE parameters);
 
 //
 // Shader Programs

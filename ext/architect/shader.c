@@ -44,6 +44,28 @@ VALUE rb_delete_shader(VALUE _self, VALUE shader_obj)
 	return Qnil;
 }
 
+VALUE rb_gl_uniform_location(VALUE _self, VALUE program_obj, VALUE location)
+{
+	GLuint program;
+	Data_Get_Struct(program_obj, GLuint, program);
+
+	int uniform_location = glGetUniformLocation(program, StringValueCStr(location));
+
+	return INT2NUM(uniform_location);
+}
+
+VALUE rb_gl_uniform_4f(VALUE _self, VALUE location, VALUE parameters)
+{
+	glUniform4f(
+		(GLint)NUM2INT(location),
+		(GLfloat)NUM2DBL(rb_ary_entry(parameters, 0)),
+		(GLfloat)NUM2DBL(rb_ary_entry(parameters, 1)),
+		(GLfloat)NUM2DBL(rb_ary_entry(parameters, 2)),
+		(GLfloat)NUM2DBL(rb_ary_entry(parameters, 3)));
+
+	return Qnil;
+}
+
 VALUE rb_create_shader_program(VALUE _self)
 {
 	GLuint shader_program = glCreateProgram();
