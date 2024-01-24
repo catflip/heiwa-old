@@ -47,10 +47,8 @@ class Window
     Architect.gl_make_context(@window)
 
     # Clear the screen using the background color
-    Architect.gl_clear_color([0.3, 0.3, 0.3, 1])
+    Architect.gl_clear_color(Architect.normalized_rgba(@options[:background_color].to_a))
     Architect.gl_clear(:color_buffer_bit)
-
-    Architect.use_shader_program(@shader_program)
 
     yield
 
