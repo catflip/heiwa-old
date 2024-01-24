@@ -41,20 +41,6 @@ class Window
 
     # Run post actions
     post_actions.each(&:call)
-
-    # Default shaders
-    vertex_shader = File.read(File.join(__dir__, 'shader', 'vertex.default.glsl'))
-    fragment_shader = File.read(File.join(__dir__, 'shader', 'fragment.default.glsl'))
-
-    vertex_shader = Architect.compile_vertex_shader(vertex_shader)
-    fragment_shader = Architect.compile_fragment_shader(fragment_shader)
-
-    @shader_program = Architect.create_shader_program
-    Architect.attach_shader_to(@shader_program, vertex_shader)
-    Architect.attach_shader_to(@shader_program, fragment_shader)
-    Architect.link_shader_program(@shader_program)
-    Architect.delete_shader(vertex_shader)
-    Architect.delete_shader(fragment_shader)
   end
 
   def render
