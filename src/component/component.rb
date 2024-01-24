@@ -9,7 +9,7 @@ class Component
   attr_writer :parent
   attr_accessor :widget
 
-  reactive_accessor :x, :y, :z, :position
+  reactive_accessor :x, :y, :z, :width, :height, :position
 
   # Creates an empty component.
   # This will do nothing in itself and will not render.
@@ -27,6 +27,7 @@ class Component
     set(
       {
         x: 0, y: 0, z: 0,
+        width: 0, height: 0,
         position: :dynamic, widget: nil
       },
       force: true

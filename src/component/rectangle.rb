@@ -6,7 +6,7 @@ class Rectangle < Component
   include EventHandler
   include Bounds
 
-  reactive_accessor :width, :height, :color, :rounding
+  reactive_accessor :color, :rounding
 
   # Creates a Rectangle.
   #
@@ -22,7 +22,7 @@ class Rectangle < Component
     options
   )
     set(
-      { width: 0, height: 0, rounding: nil, color: Color.new(255, 255, 255) },
+      { rounding: nil, color: Color.new(255, 255, 255) },
       force: true
     )
 
