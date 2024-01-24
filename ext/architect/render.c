@@ -113,3 +113,69 @@ VALUE rb_gl_draw_elements(VALUE _self, VALUE mode_sym, VALUE count, VALUE type_s
 
 	return Qnil;
 }
+
+GLenum gl_feature(VALUE sym_or_num)
+{
+	GLenum feature;
+	if (sym_or_num == sym("blend"))
+	{
+		feature = GL_BLEND;
+	}
+	else if (RB_TYPE_P(sym_or_num, T_FIXNUM))
+	{
+		feature = (GLenum)NUM2INT(sym_or_num);
+	}
+	else
+	{
+		feature = -1;
+	}
+
+	return feature;
+}
+
+VALUE rb_gl_enable(VALUE _self, VALUE feature_val)
+{
+	GLenum feature = gl_feature(feature_val);
+	if (feature == -1)
+		return Qnil;
+
+	glEnable(feature);
+
+	return Qnil;
+}
+
+VALUE rb_gl_disable(VALUE _self, VALUE feature_val)
+{
+	GLenum feature = gl_feature(feature_val);
+	if (feature == -1)
+		return Qnil;
+
+	glDisable(feature);
+
+	return Qnil;
+}
+
+VALUE rb_gl_blendfunc(VALUE _self, VALUE sfactor_sym, VALUE dfactor_sym)
+{
+	GLenum sfactor;
+	if (sfactor_sym == sym("src_alpha"))
+	{
+		sfactor = GL_SRC_ALPHA;
+	}
+	else
+	{
+		sfactor = GL_ONE;
+	}
+
+	GLenum dfactor;
+	if (dfactor_sym == sym("one_minus_src_alpha"))
+	{
+		dfactor = GL_ONE_MINUS_SRC_ALPHA;
+	}
+	else
+	{
+		dfactor = GL_ONE;
+	}
+
+	glBlendFunc(sfactor, dfactor);
+}

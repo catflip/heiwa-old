@@ -43,6 +43,9 @@ void Init_architect()
 	rb_define_module_function(architect, "gl_bind_vertex_array", rb_gl_bind_vertex_array, 1);
 	rb_define_module_function(architect, "gl_draw_arrays", rb_gl_draw_arrays, 3);
 	rb_define_module_function(architect, "gl_draw_elements", rb_gl_draw_elements, 4);
+	rb_define_module_function(architect, "gl_enable", rb_gl_enable, 1);
+	rb_define_module_function(architect, "gl_disable", rb_gl_disable, 1);
+	rb_define_module_function(architect, "gl_blendfunc", rb_gl_blendfunc, 2);
 
 	// Shader
 	rb_define_module_function(architect, "compile_vertex_shader", rb_compile_vertex_shader, 1);
