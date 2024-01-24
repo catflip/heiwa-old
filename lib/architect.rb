@@ -156,6 +156,28 @@ module Architect
 
     [normalized_x, normalized_y]
   end
+
+  # Normalizes an RGB(A) color.
+  # @param [Integer] red
+  # @param [Integer] green
+  # @param [Integer] blue
+  # @param [Integer] alpha
+  # @return [Array<Numeric>] The normalized color.
+  def self.normalized_rgba(colors)
+    colors[3] ||= 255
+    colors.map { |c| normalized_num(c, 0, 255) }
+  end
+
+  # Normalizes any number to 0-1.
+  # @param [Numeric] num The number you want to normalize.
+  # @param [Numeric] min The minimum bound.
+  # @param [Numeric] max The maximum bound.
+  # @retunr [Numeric] The normalized value.
+  def self.normalized_num(num, min, max)
+    clamped = num.clamp(min, max)
+    normalized = (clamped - min).fdiv((max - min))
+    normalized.clamp(0, 1)
+  end
 end
 
 module Screen
