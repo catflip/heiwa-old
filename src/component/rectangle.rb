@@ -47,6 +47,9 @@ class Rectangle < Component
   def render
     after_init unless @initialized
 
+    Architect.gl_enable(:blend)
+    Architect.gl_blendfunc(:src_alpha, :one_minus_src_alpha)
+
     Architect.use_shader_program(@shader)
     loc = Architect.gl_uniform_location(@shader, 'color')
 
@@ -56,6 +59,8 @@ class Rectangle < Component
     Architect.gl_bind_vertex_array(@vao)
     Architect.gl_draw_elements(:triangles, 6, :unsigned_int, nil)
     Architect.gl_bind_vertex_array(0)
+
+    Architect.gl_disable(:blend)
   end
 
   def add_event(event, only_hover: true, &block)
