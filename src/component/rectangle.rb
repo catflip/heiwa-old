@@ -1,4 +1,4 @@
-require_relative '../shaders/Solid'
+require_relative '../shaders/solid_shader'
 
 class Rectangle < Component
   include DynamicSize
