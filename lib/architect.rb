@@ -83,6 +83,17 @@ module Architect
   #   Deletes a compiled shader.
   #   @param [Object] shader The shader to delete.
 
+  # @!method self.gl_uniform_location(program, location)
+  #   Returns the uniform location in a given program.
+  #   @param [Object] program
+  #   @param [String] location The uniform's name.
+
+  # @!method self.gl_uniform_4f(location, parameters)
+  #   Sets the uniform values.
+  #   @param [Integer] location The uniform location.
+  #     Can be found via `gl_uniform_location`.
+  #   @param [Array<Numeric>] parameters
+
   # @!method self.create_shader_program()
   #   Creates a shader program.
   #   @return [Object] The shader program.
