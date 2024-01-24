@@ -1,3 +1,5 @@
+require_relative '../shaders/Solid'
+
 class Rectangle < Component
   include DynamicSize
   include DynamicPosition
@@ -37,12 +39,19 @@ class Rectangle < Component
     geometry = Architect.geometry_rectangle({ x1:, y1:, x2:, y2: })
     @vao = geometry[:vao]
     @vbo = geometry[:vbo]
+    @shader = SolidShader.shader.program
 
     @initialized = true
   end
 
   def render
     after_init unless @initialized
+
+    Architect.use_shader_program(@shader)
+    loc = Architect.gl_uniform_location(@shader, 'color')
+
+    colors = Architect.normalized_rgba(color.to_a)
+    Architect.gl_uniform_4f(loc, colors)
 
     Architect.gl_bind_vertex_array(@vao)
     Architect.gl_draw_elements(:triangles, 6, :unsigned_int, nil)
