@@ -46,8 +46,12 @@ VALUE rb_gl_clear(VALUE _self, VALUE mask_sym)
 	{
 		mask = GL_COLOR_BUFFER_BIT;
 	}
+	else if (mask_sym == sym("color_and_buffer_bit"))
+	{
+		mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
+	}
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(mask);
 
 	return Qnil;
 }
